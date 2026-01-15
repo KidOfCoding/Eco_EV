@@ -146,7 +146,7 @@ export const Home: React.FC = () => {
               className="relative"
             >
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
-                <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 mb-4">
+                <div className="bg-white/60 backdrop-blur-md rounded-xl p-6 mb-4 shadow-lg">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <div className="h-10 w-10 bg-green-500 rounded-full flex items-center justify-center">
