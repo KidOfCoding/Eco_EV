@@ -14,10 +14,46 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { ChargingStation } from '../types';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { renderToStaticMarkup } from 'react-dom/server';
+
+// Create custom marker icon
+const createCustomIcon = () => {
+  const iconHtml = renderToStaticMarkup(
+    <div className="relative flex flex-col items-center justify-center transform -translate-x-1/2 -translate-y-full">
+      <div className="h-10 w-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white shadow-lg border-2 border-white z-10">
+        <Zap className="h-5 w-5 fill-current" />
+      </div>
+      <div className="w-0 h-0 border-l-[8px] border-l-transparent border-t-[8px] border-t-emerald-600 border-r-[8px] border-r-transparent -mt-1 z-0"></div>
+      <div className="w-8 h-2 bg-black/20 blur-sm rounded-full mt-1"></div>
+    </div>
+  );
+
+  return L.divIcon({
+    html: iconHtml,
+    className: 'custom-marker-icon', // Use a custom class to avoid default styles
+    iconSize: [40, 50],
+    iconAnchor: [20, 50],
+  });
+};
+
+const customIcon = createCustomIcon();
+
+// Component to handle map center updates
+const MapController = ({ center }: { center: [number, number] }) => {
+  const map = useMap();
+  useEffect(() => {
+    map.flyTo(center, 13);
+  }, [center, map]);
+  return null;
+};
 
 export const Map: React.FC = () => {
   const [stations, setStations] = useState<ChargingStation[]>([]);
   const [selectedStation, setSelectedStation] = useState<ChargingStation | null>(null);
+  const [mapCenter, setMapCenter] = useState<[number, number]>([20.2961, 85.8245]); // Default to Bhubaneswar
   const [filters, setFilters] = useState({
     socketType: '',
     maxPrice: 100,
@@ -25,66 +61,25 @@ export const Map: React.FC = () => {
   });
   const [searchQuery, setSearchQuery] = useState('');
 
+  const handleUseCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setMapCenter([position.coords.latitude, position.coords.longitude]);
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+          alert("Could not get your location. Please enable location services.");
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+
   // Mock data - in real app, this would come from API
   useEffect(() => {
     const mockStations: ChargingStation[] = [
-      {
-        id: '1',
-        hostId: '1',
-        hostName: 'Rajesh Kumar',
-        hostRating: 4.8,
-        title: 'FastCharge Home Station',
-        description: 'Covered parking, 24/7 available, near metro station',
-        address: 'Koramangala, Bangalore, Karnataka',
-        coordinates: { lat: 12.9352, lng: 77.6245 },
-        socketType: 'Type-2',
-        powerCapacity: 3.3,
-        pricing: { perMinute: 2, perKwh: 8 },
-        availability: 'available',
-        amenities: ['Covered Parking', 'Security Camera', 'WiFi'],
-        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
-        reviews: [],
-        isActive: true,
-        createdAt: '2024-01-01'
-      },
-      {
-        id: '2',
-        hostId: '2',
-        hostName: 'Priya Sharma',
-        hostRating: 4.9,
-        title: 'Green Energy Hub',
-        description: 'Solar powered charging, eco-friendly location',
-        address: 'Indiranagar, Bangalore, Karnataka',
-        coordinates: { lat: 12.9719, lng: 77.6412 },
-        socketType: 'CCS',
-        powerCapacity: 7.2,
-        pricing: { perMinute: 3, perKwh: 12 },
-        availability: 'busy',
-        amenities: ['Solar Powered', 'Café Nearby', 'Rest Area'],
-        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
-        reviews: [],
-        isActive: true,
-        createdAt: '2024-01-02'
-      },
-      {
-        id: '3',
-        hostId: '3',
-        hostName: 'Amit Singh',
-        hostRating: 4.6,
-        title: 'Quick Charge Point',
-        description: 'Fast charging available, safe neighbourhood',
-        address: 'Whitefield, Bangalore, Karnataka',
-        coordinates: { lat: 12.9698, lng: 77.7500 },
-        socketType: 'Type-2',
-        powerCapacity: 5.0,
-        pricing: { perMinute: 2.5, perKwh: 10 },
-        availability: 'available',
-        amenities: ['Fast Charging', 'CCTV', 'Shopping Mall'],
-        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
-        reviews: [],
-        isActive: true,
-        createdAt: '2024-01-03'
-      },
       // Bhubaneswar Stations
       {
         id: '4',
@@ -237,6 +232,64 @@ export const Map: React.FC = () => {
         reviews: [],
         isActive: true,
         createdAt: '2024-01-04'
+      },
+      // Bangalore Stations (Others)
+      {
+        id: '1',
+        hostId: '1',
+        hostName: 'Rajesh Kumar',
+        hostRating: 4.8,
+        title: 'FastCharge Home Station',
+        description: 'Covered parking, 24/7 available, near metro station',
+        address: 'Koramangala, Bangalore, Karnataka',
+        coordinates: { lat: 12.9352, lng: 77.6245 },
+        socketType: 'Type-2',
+        powerCapacity: 3.3,
+        pricing: { perMinute: 2, perKwh: 8 },
+        availability: 'available',
+        amenities: ['Covered Parking', 'Security Camera', 'WiFi'],
+        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
+        reviews: [],
+        isActive: true,
+        createdAt: '2024-01-01'
+      },
+      {
+        id: '2',
+        hostId: '2',
+        hostName: 'Priya Sharma',
+        hostRating: 4.9,
+        title: 'Green Energy Hub',
+        description: 'Solar powered charging, eco-friendly location',
+        address: 'Indiranagar, Bangalore, Karnataka',
+        coordinates: { lat: 12.9719, lng: 77.6412 },
+        socketType: 'CCS',
+        powerCapacity: 7.2,
+        pricing: { perMinute: 3, perKwh: 12 },
+        availability: 'busy',
+        amenities: ['Solar Powered', 'Café Nearby', 'Rest Area'],
+        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
+        reviews: [],
+        isActive: true,
+        createdAt: '2024-01-02'
+      },
+      {
+        id: '3',
+        hostId: '3',
+        hostName: 'Amit Singh',
+        hostRating: 4.6,
+        title: 'Quick Charge Point',
+        description: 'Fast charging available, safe neighbourhood',
+        address: 'Whitefield, Bangalore, Karnataka',
+        coordinates: { lat: 12.9698, lng: 77.7500 },
+        socketType: 'Type-2',
+        powerCapacity: 5.0,
+        pricing: { perMinute: 2.5, perKwh: 10 },
+        availability: 'available',
+        amenities: ['Fast Charging', 'CCTV', 'Shopping Mall'],
+        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
+        reviews: [],
+        isActive: true,
+        createdAt: '2024-01-03'
       }
     ];
     setStations(mockStations);
@@ -363,7 +416,11 @@ export const Map: React.FC = () => {
                 </div>
               </div>
 
-              <Button className="w-full" icon={<Navigation className="h-4 w-4" />}>
+              <Button
+                className="w-full"
+                icon={<Navigation className="h-4 w-4" />}
+                onClick={handleUseCurrentLocation}
+              >
                 Use Current Location
               </Button>
             </div>
@@ -371,17 +428,38 @@ export const Map: React.FC = () => {
 
           {/* Map and Results */}
           <div className="lg:col-span-2">
-            {/* Map Placeholder */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm mb-6 h-96 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500 dark:text-gray-400">
-                  Interactive map would be displayed here
-                </p>
-                <p className="text-sm text-gray-400 mt-2">
-                  Integration with Google Maps or MapMyIndia
-                </p>
-              </div>
+            {/* Map Component */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm mb-6 h-96 overflow-hidden relative z-0">
+              <MapContainer
+                center={mapCenter}
+                zoom={13}
+                scrollWheelZoom={true}
+                className="h-full w-full"
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <MapController center={mapCenter} />
+                {filteredStations.map((station) => (
+                  <Marker
+                    key={station.id}
+                    position={[station.coordinates.lat, station.coordinates.lng]}
+                    icon={customIcon}
+                    eventHandlers={{
+                      click: () => setSelectedStation(station),
+                    }}
+                  >
+                    <Popup>
+                      <div className="p-2">
+                        <h3 className="font-bold text-gray-900">{station.title}</h3>
+                        <p className="text-gray-600 text-sm">{station.availability}</p>
+                        <p className="text-blue-600 font-semibold mt-1">₹{station.pricing.perKwh}/kWh</p>
+                      </div>
+                    </Popup>
+                  </Marker>
+                ))}
+              </MapContainer>
             </div>
 
             {/* Results List */}
