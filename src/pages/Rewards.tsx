@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Gift, 
-  Star, 
-  Trophy, 
-  Target, 
+import {
+  Gift,
+  Star,
+  Trophy,
+  Target,
   Users,
   Zap,
   Calendar,
@@ -89,7 +89,7 @@ export const Rewards: React.FC = () => {
     {
       id: 4,
       title: 'Social Butterfly',
-      description: 'Refer 5 friends to ChargeBike',
+      description: 'Refer 5 friends to Eco Pulse',
       reward: 1000,
       progress: 60,
       completed: false,
@@ -147,8 +147,8 @@ export const Rewards: React.FC = () => {
   };
 
   const getCurrentTier = () => {
-    return tiers.find(tier => 
-      userProgress.currentPoints >= tier.minPoints && 
+    return tiers.find(tier =>
+      userProgress.currentPoints >= tier.minPoints &&
       userProgress.currentPoints < (tiers[tiers.indexOf(tier) + 1]?.minPoints || Infinity)
     ) || tiers[0];
   };
@@ -228,7 +228,7 @@ export const Rewards: React.FC = () => {
                   {nextTier.minPoints - userProgress.currentPoints} points to go
                 </div>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                  <div 
+                  <div
                     className="bg-blue-500 h-2 rounded-full transition-all duration-500"
                     style={{ width: `${(userProgress.currentPoints / nextTier.minPoints) * 100}%` }}
                   ></div>
@@ -259,11 +259,10 @@ export const Rewards: React.FC = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 py-2 px-4 rounded-md transition-colors ${
-                  activeTab === tab.id
+                className={`flex-1 py-2 px-4 rounded-md transition-colors ${activeTab === tab.id
                     ? 'bg-blue-600 text-white'
                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                }`}
+                  }`}
               >
                 {tab.label}
               </button>
@@ -303,11 +302,10 @@ export const Rewards: React.FC = () => {
                   {tiers.map((tier, index) => (
                     <div
                       key={index}
-                      className={`p-4 rounded-lg border-2 ${
-                        tier.name === currentTier.name
+                      className={`p-4 rounded-lg border-2 ${tier.name === currentTier.name
                           ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                           : 'border-gray-200 dark:border-gray-700'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center justify-between">
                         <div>
@@ -339,16 +337,14 @@ export const Rewards: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 ${
-                    challenge.completed ? 'ring-2 ring-green-500' : ''
-                  }`}
+                  className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 ${challenge.completed ? 'ring-2 ring-green-500' : ''
+                    }`}
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <div className={`h-12 w-12 rounded-lg flex items-center justify-center ${
-                      challenge.completed 
+                    <div className={`h-12 w-12 rounded-lg flex items-center justify-center ${challenge.completed
                         ? 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400'
                         : 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
-                    }`}>
+                      }`}>
                       {challenge.completed ? <CheckCircle className="h-6 w-6" /> : challenge.icon}
                     </div>
                     <div className="text-right">
@@ -370,10 +366,9 @@ export const Rewards: React.FC = () => {
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                      <div 
-                        className={`h-2 rounded-full transition-all duration-500 ${
-                          challenge.completed ? 'bg-green-500' : 'bg-blue-500'
-                        }`}
+                      <div
+                        className={`h-2 rounded-full transition-all duration-500 ${challenge.completed ? 'bg-green-500' : 'bg-blue-500'
+                          }`}
                         style={{ width: `${Math.min(challenge.progress, 100)}%` }}
                       ></div>
                     </div>
@@ -404,7 +399,7 @@ export const Rewards: React.FC = () => {
                       Share Code
                     </Button>
                   </div>
-                  
+
                   <div className="grid grid-cols-2 gap-4">
                     <div className="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                       <div className="text-2xl font-bold text-gray-900 dark:text-white">

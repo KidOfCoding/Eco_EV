@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  MapPin, 
-  Clock, 
-  Zap, 
-  Star, 
+import {
+  MapPin,
+  Clock,
+  Zap,
+  Star,
   Calendar,
   CreditCard,
   Wallet,
@@ -26,7 +26,7 @@ export const BookingFlow: React.FC = () => {
   const stationId = searchParams.get('stationId');
   const navigate = useNavigate();
   const { user, updateUser } = useAuth();
-  
+
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
@@ -71,7 +71,7 @@ export const BookingFlow: React.FC = () => {
   const paymentMethods = [
     {
       id: 'wallet',
-      name: 'ChargeBike Wallet',
+      name: 'Eco Pulse Wallet',
       description: `Balance: ₹${user?.wallet || 0}`,
       icon: <Wallet className="h-6 w-6" />,
       available: (user?.wallet || 0) >= calculateTotal()
@@ -104,13 +104,13 @@ export const BookingFlow: React.FC = () => {
     if (!user || !station) return;
 
     setLoading(true);
-    
+
     try {
       // Simulate booking process
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       const bookingAmount = calculateTotal();
-      
+
       if (paymentMethod === 'wallet') {
         if ((user.wallet || 0) < bookingAmount) {
           toast.error('Insufficient wallet balance');
@@ -134,8 +134,8 @@ export const BookingFlow: React.FC = () => {
       };
 
       toast.success('Booking confirmed successfully!');
-      navigate('/booking-confirmation', { 
-        state: { booking, station } 
+      navigate('/booking-confirmation', {
+        state: { booking, station }
       });
     } catch (error) {
       toast.error('Booking failed. Please try again.');
@@ -166,8 +166,8 @@ export const BookingFlow: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="flex items-center mb-8">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={() => navigate(-1)}
             icon={<ArrowLeft className="h-4 w-4" />}
           >
@@ -188,17 +188,15 @@ export const BookingFlow: React.FC = () => {
           <div className="flex items-center justify-center space-x-4">
             {[1, 2, 3].map((step) => (
               <div key={step} className="flex items-center">
-                <div className={`h-10 w-10 rounded-full flex items-center justify-center font-semibold ${
-                  step <= currentStep 
-                    ? 'bg-blue-600 text-white' 
+                <div className={`h-10 w-10 rounded-full flex items-center justify-center font-semibold ${step <= currentStep
+                    ? 'bg-blue-600 text-white'
                     : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
-                }`}>
+                  }`}>
                   {step < currentStep ? <CheckCircle className="h-5 w-5" /> : step}
                 </div>
                 {step < 3 && (
-                  <div className={`w-16 h-1 mx-2 ${
-                    step < currentStep ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-700'
-                  }`}></div>
+                  <div className={`w-16 h-1 mx-2 ${step < currentStep ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-700'
+                    }`}></div>
                 )}
               </div>
             ))}
@@ -257,11 +255,10 @@ export const BookingFlow: React.FC = () => {
                         <button
                           key={time}
                           onClick={() => setSelectedTime(time)}
-                          className={`p-3 rounded-lg border-2 transition-all ${
-                            selectedTime === time
+                          className={`p-3 rounded-lg border-2 transition-all ${selectedTime === time
                               ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
                               : 'border-gray-300 dark:border-gray-600 hover:border-gray-400'
-                          }`}
+                            }`}
                         >
                           {time}
                         </button>
@@ -289,7 +286,7 @@ export const BookingFlow: React.FC = () => {
                     </div>
                   </div>
 
-                  <Button 
+                  <Button
                     className="w-full"
                     onClick={() => setCurrentStep(2)}
                     disabled={!selectedDate || !selectedTime}
@@ -379,14 +376,14 @@ export const BookingFlow: React.FC = () => {
                   </div>
 
                   <div className="flex space-x-4">
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       onClick={() => setCurrentStep(1)}
                       className="flex-1"
                     >
                       Back
                     </Button>
-                    <Button 
+                    <Button
                       onClick={() => setCurrentStep(3)}
                       className="flex-1"
                     >
@@ -406,7 +403,7 @@ export const BookingFlow: React.FC = () => {
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                       Enhance your charging experience with local food, accommodation, and entertainment options
                     </p>
-                    
+
                     {/* Food Options */}
                     <div className="mb-6">
                       <h4 className="font-medium text-gray-900 dark:text-white mb-3">Local Food Options</h4>
@@ -486,22 +483,20 @@ export const BookingFlow: React.FC = () => {
                     {paymentMethods.map((method) => (
                       <div
                         key={method.id}
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
-                          paymentMethod === method.id
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${paymentMethod === method.id
                             ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                             : method.available
-                            ? 'border-gray-300 dark:border-gray-600 hover:border-gray-400'
-                            : 'border-gray-200 dark:border-gray-700 opacity-50 cursor-not-allowed'
-                        }`}
+                              ? 'border-gray-300 dark:border-gray-600 hover:border-gray-400'
+                              : 'border-gray-200 dark:border-gray-700 opacity-50 cursor-not-allowed'
+                          }`}
                         onClick={() => method.available && setPaymentMethod(method.id)}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
-                            <div className={`h-10 w-10 rounded-lg flex items-center justify-center ${
-                              method.available 
+                            <div className={`h-10 w-10 rounded-lg flex items-center justify-center ${method.available
                                 ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
                                 : 'bg-gray-100 dark:bg-gray-700 text-gray-400'
-                            }`}>
+                              }`}>
                               {method.icon}
                             </div>
                             <div>
@@ -515,8 +510,8 @@ export const BookingFlow: React.FC = () => {
                           </div>
                           <div className="flex items-center">
                             {!method.available && method.id === 'wallet' && (
-                              <Button 
-                                size="sm" 
+                              <Button
+                                size="sm"
                                 variant="outline"
                                 onClick={(e) => {
                                   e.stopPropagation();
@@ -530,7 +525,7 @@ export const BookingFlow: React.FC = () => {
                               type="radio"
                               name="payment"
                               checked={paymentMethod === method.id}
-                              onChange={() => {}}
+                              onChange={() => { }}
                               className="ml-3 h-4 w-4 text-blue-600"
                               disabled={!method.available}
                             />
@@ -556,14 +551,14 @@ export const BookingFlow: React.FC = () => {
                   </div>
 
                   <div className="flex space-x-4">
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       onClick={() => setCurrentStep(2)}
                       className="flex-1"
                     >
                       Back
                     </Button>
-                    <Button 
+                    <Button
                       onClick={handleBooking}
                       disabled={loading || !paymentMethod}
                       className="flex-1"
@@ -584,11 +579,11 @@ export const BookingFlow: React.FC = () => {
                 alt={station.title}
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />
-              
+
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                 {station.title}
               </h3>
-              
+
               <div className="flex items-center space-x-2 mb-3">
                 <div className="flex items-center">
                   <User className="h-4 w-4 text-gray-400 mr-1" />

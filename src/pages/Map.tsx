@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  MapPin, 
-  Filter, 
-  Search, 
-  Star, 
-  Zap, 
-  Clock, 
+import {
+  MapPin,
+  Filter,
+  Search,
+  Star,
+  Zap,
+  Clock,
   DollarSign,
   Navigation,
   RefreshCw
@@ -84,6 +84,159 @@ export const Map: React.FC = () => {
         reviews: [],
         isActive: true,
         createdAt: '2024-01-03'
+      },
+      // Bhubaneswar Stations
+      {
+        id: '4',
+        hostId: '4',
+        hostName: 'TML Tirupati Enterprises',
+        hostRating: 4.5,
+        title: 'TML Tirupati Enterprises Charging Station',
+        description: 'IDCO, Plot No. 16,17,32&33 Bhagabanpur Industrial Area Bhubaneswar. Slot - 5',
+        address: 'IDCO, Plot No. 16,17,32&33 Bhagabanpur Industrial Area, Bhubaneswar',
+        coordinates: { lat: 20.2961, lng: 85.8245 },
+        socketType: 'CCS',
+        powerCapacity: 30,
+        pricing: { perMinute: 5, perKwh: 18 },
+        availability: 'available',
+        amenities: ['24/7 Access', 'Restroom', 'Main Road Access'],
+        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
+        reviews: [],
+        isActive: true,
+        createdAt: '2024-01-04'
+      },
+      {
+        id: '5',
+        hostId: '5',
+        hostName: 'Tata Power',
+        hostRating: 4.7,
+        title: 'Tata Power - BMC Bhawani Mall',
+        description: 'BMC Bhawani Mall St, Saheed Nagar Bhubaneswar. Slot - 7',
+        address: 'BMC Bhawani Mall St, Saheed Nagar, Bhubaneswar',
+        coordinates: { lat: 20.2920, lng: 85.8450 },
+        socketType: 'Type-2',
+        powerCapacity: 22,
+        pricing: { perMinute: 4, perKwh: 15 },
+        availability: 'available',
+        amenities: ['Mall Access', 'Food Court', 'Parking'],
+        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
+        reviews: [],
+        isActive: true,
+        createdAt: '2024-01-04'
+      },
+      {
+        id: '6',
+        hostId: '6',
+        hostName: 'Gugnani Autocars',
+        hostRating: 4.4,
+        title: 'Tata Power - GUGNANI AUTOCARS',
+        description: 'Plot No. S, 3/48, Block C, Sector A, Mancheswar Industrial Estate. Slot - 1',
+        address: 'Mancheswar Industrial Estate, Bhubaneswar',
+        coordinates: { lat: 20.3200, lng: 85.8300 },
+        socketType: 'CCS',
+        powerCapacity: 25,
+        pricing: { perMinute: 4.5, perKwh: 16 },
+        availability: 'busy',
+        amenities: ['Service Center', 'Waiting Lounge'],
+        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
+        reviews: [],
+        isActive: true,
+        createdAt: '2024-01-04'
+      },
+      {
+        id: '7',
+        hostId: '7',
+        hostName: 'MLCP',
+        hostRating: 4.3,
+        title: 'Tata Power - MLCP Charging Station',
+        description: 'MLCP Saheed Nagar Plot No.150(P) Saheed Nagar Bhubaneswar. Slot - 6',
+        address: 'MLCP Saheed Nagar, Bhubaneswar',
+        coordinates: { lat: 20.2940, lng: 85.8420 },
+        socketType: 'Type-2',
+        powerCapacity: 7.2,
+        pricing: { perMinute: 3, perKwh: 12 },
+        availability: 'available',
+        amenities: ['Multi-level Parking', 'City Center'],
+        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
+        reviews: [],
+        isActive: true,
+        createdAt: '2024-01-04'
+      },
+      {
+        id: '8',
+        hostId: '8',
+        hostName: 'Dion Automotives',
+        hostRating: 4.6,
+        title: 'Tata Power - Dion Automotives',
+        description: 'Plot No 2175, 3766, Lewis Road, Samantarapur, Old Town. Slot - 4',
+        address: 'Lewis Road, Samantarapur, Old Town, Bhubaneswar',
+        coordinates: { lat: 20.2500, lng: 85.8350 },
+        socketType: 'CCS',
+        powerCapacity: 50,
+        pricing: { perMinute: 6, perKwh: 20 },
+        availability: 'available',
+        amenities: ['Showroom', 'Wifi', 'Coffee'],
+        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
+        reviews: [],
+        isActive: true,
+        createdAt: '2024-01-04'
+      },
+      {
+        id: '9',
+        hostId: '9',
+        hostName: 'Geetanjali Stations',
+        hostRating: 4.2,
+        title: 'Charger - Geetanjali Charging Station',
+        description: 'Service Rd W Acharya Vihar, Bhubaneswar. Slot - 1',
+        address: 'Service Rd W Acharya Vihar, Bhubaneswar',
+        coordinates: { lat: 20.3000, lng: 85.8300 },
+        socketType: 'Type-2',
+        powerCapacity: 22,
+        pricing: { perMinute: 3.5, perKwh: 14 },
+        availability: 'offline',
+        amenities: ['Highway Access', '24/7'],
+        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
+        reviews: [],
+        isActive: true,
+        createdAt: '2024-01-04'
+      },
+      {
+        id: '10',
+        hostId: '10',
+        hostName: 'Gugnani Tyres',
+        hostRating: 4.5,
+        title: 'Tata Power - GUGNANI TYRES',
+        description: 'UCO Bank 1294, CRP - DAV Rd, Nilakantha Nagar, Nayapalli. Slot - 2',
+        address: 'Nilakantha Nagar, Nayapalli, Bhubaneswar',
+        coordinates: { lat: 20.2800, lng: 85.8150 },
+        socketType: 'CCS',
+        powerCapacity: 30,
+        pricing: { perMinute: 5, perKwh: 18 },
+        availability: 'available',
+        amenities: ['Tyre Shop', 'Air Filling'],
+        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
+        reviews: [],
+        isActive: true,
+        createdAt: '2024-01-04'
+      },
+      {
+        id: '11',
+        hostId: '11',
+        hostName: 'HPCL',
+        hostRating: 4.4,
+        title: 'HPCL - Regional Office Charging Station',
+        description: '7RRW M8H, Saheed Nagar Bhubaneswar. Slot - 1',
+        address: 'Saheed Nagar, Bhubaneswar',
+        coordinates: { lat: 20.2910, lng: 85.8430 },
+        socketType: 'Type-2',
+        powerCapacity: 7.2,
+        pricing: { perMinute: 3, perKwh: 12 },
+        availability: 'available',
+        amenities: ['Petrol Pump', 'Air', 'Water'],
+        images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
+        reviews: [],
+        isActive: true,
+        createdAt: '2024-01-04'
       }
     ];
     setStations(mockStations);
@@ -91,11 +244,11 @@ export const Map: React.FC = () => {
 
   const filteredStations = stations.filter(station => {
     const matchesSearch = station.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         station.address.toLowerCase().includes(searchQuery.toLowerCase());
+      station.address.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesSocket = !filters.socketType || station.socketType === filters.socketType;
     const matchesPrice = station.pricing.perKwh <= filters.maxPrice;
     const matchesAvailability = filters.availability === 'all' || station.availability === filters.availability;
-    
+
     return matchesSearch && matchesSocket && matchesPrice && matchesAvailability;
   });
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Users, 
-  Heart, 
-  Shield, 
-  MessageCircle, 
+import {
+  Users,
+  Heart,
+  Shield,
+  MessageCircle,
   Star,
   Award,
   Handshake,
@@ -135,7 +135,7 @@ export const Community: React.FC = () => {
               Community Guidelines
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Building a trusted, safe, and respectful community for all EV enthusiasts. 
+              Building a trusted, safe, and respectful community for all EV enthusiasts.
               These guidelines help us maintain the quality and safety of our platform.
             </p>
           </motion.div>
@@ -323,7 +323,7 @@ export const Community: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900 dark:text-white mb-1">Email Support</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Send detailed reports to safety@chargebike.com</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Send detailed reports to safety@ecopulse.com</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">

@@ -6,7 +6,7 @@ export const Terms: React.FC = () => {
   const sections = [
     {
       title: 'Acceptance of Terms',
-      content: `By accessing and using ChargeBike's platform, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.`
+      content: `By accessing and using Eco Pulse's platform, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.`
     },
     {
       title: 'User Accounts',
@@ -30,7 +30,7 @@ export const Terms: React.FC = () => {
     },
     {
       title: 'Safety and Insurance',
-      content: `All charging sessions are covered by our comprehensive insurance policy. Users must follow safety guidelines and report any incidents immediately. ChargeBike is not liable for damages resulting from misuse or negligence.`
+      content: `All charging sessions are covered by our comprehensive insurance policy. Users must follow safety guidelines and report any incidents immediately. Eco Pulse is not liable for damages resulting from misuse or negligence.`
     },
     {
       title: 'Prohibited Activities',
@@ -38,11 +38,11 @@ export const Terms: React.FC = () => {
     },
     {
       title: 'Intellectual Property',
-      content: `All content, trademarks, and intellectual property on the platform belong to ChargeBike or its licensors. Users may not reproduce, distribute, or create derivative works without permission.`
+      content: `All content, trademarks, and intellectual property on the platform belong to Eco Pulse or its licensors. Users may not reproduce, distribute, or create derivative works without permission.`
     },
     {
       title: 'Limitation of Liability',
-      content: `ChargeBike's liability is limited to the amount paid for the specific service. We are not liable for indirect, incidental, or consequential damages. Our total liability shall not exceed ₹10,000 per incident.`
+      content: `Eco Pulse's liability is limited to the amount paid for the specific service. We are not liable for indirect, incidental, or consequential damages. Our total liability shall not exceed ₹10,000 per incident.`
     },
     {
       title: 'Dispute Resolution',
@@ -68,7 +68,7 @@ export const Terms: React.FC = () => {
               Terms of Service
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Please read these terms carefully before using ChargeBike's platform and services.
+              Please read these terms carefully before using Eco Pulse's platform and services.
             </p>
           </motion.div>
         </div>
@@ -119,7 +119,7 @@ export const Terms: React.FC = () => {
                   Important Notice
                 </h3>
                 <p className="text-yellow-700 dark:text-yellow-300">
-                  These terms constitute a legally binding agreement. By using our platform, you acknowledge that you have read, understood, and agree to be bound by these terms. If you have any questions, please contact our legal team at legal@chargebike.com.
+                  These terms constitute a legally binding agreement. By using our platform, you acknowledge that you have read, understood, and agree to be bound by these terms. If you have any questions, please contact our legal team at legal@ecopulse.com.
                 </p>
               </div>
             </div>

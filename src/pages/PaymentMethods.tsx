@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  CreditCard, 
-  Smartphone, 
-  Wallet, 
+import {
+  CreditCard,
+  Smartphone,
+  Wallet,
   Plus,
   Trash2,
   Shield,
@@ -21,7 +21,7 @@ export const PaymentMethods: React.FC = () => {
   const { user, updateUser } = useAuth();
   const [showAddCard, setShowAddCard] = useState(false);
   const [showAddUPI, setShowAddUPI] = useState(false);
-  
+
   const [cardData, setCardData] = useState({
     number: '',
     name: '',
@@ -95,8 +95,8 @@ export const PaymentMethods: React.FC = () => {
     const newUPI = {
       id: Math.random().toString(36),
       type: 'upi',
-      name: upiData.provider === 'gpay' ? 'Google Pay' : 
-            upiData.provider === 'phonepe' ? 'PhonePe' : 'Paytm',
+      name: upiData.provider === 'gpay' ? 'Google Pay' :
+        upiData.provider === 'phonepe' ? 'PhonePe' : 'Paytm',
       details: upiData.id,
       isDefault: paymentMethods.length === 0,
       provider: upiData.provider
@@ -109,7 +109,7 @@ export const PaymentMethods: React.FC = () => {
   };
 
   const handleSetDefault = (id: string) => {
-    setPaymentMethods(prev => 
+    setPaymentMethods(prev =>
       prev.map(method => ({
         ...method,
         isDefault: method.id === id
@@ -167,15 +167,15 @@ export const PaymentMethods: React.FC = () => {
                     Saved Payment Methods
                   </h2>
                   <div className="flex space-x-2">
-                    <Button 
-                      size="sm" 
+                    <Button
+                      size="sm"
                       variant="outline"
                       onClick={() => setShowAddUPI(true)}
                       icon={<Smartphone className="h-4 w-4" />}
                     >
                       Add UPI
                     </Button>
-                    <Button 
+                    <Button
                       size="sm"
                       onClick={() => setShowAddCard(true)}
                       icon={<Plus className="h-4 w-4" />}
@@ -213,11 +213,10 @@ export const PaymentMethods: React.FC = () => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className={`border-2 rounded-lg p-4 ${
-                          method.isDefault 
-                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' 
+                        className={`border-2 rounded-lg p-4 ${method.isDefault
+                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                             : 'border-gray-300 dark:border-gray-600'
-                        }`}
+                          }`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4">
@@ -242,23 +241,23 @@ export const PaymentMethods: React.FC = () => {
                           </div>
                           <div className="flex items-center space-x-2">
                             {!method.isDefault && (
-                              <Button 
-                                size="sm" 
+                              <Button
+                                size="sm"
                                 variant="ghost"
                                 onClick={() => handleSetDefault(method.id)}
                               >
                                 Set Default
                               </Button>
                             )}
-                            <Button 
-                              size="sm" 
+                            <Button
+                              size="sm"
                               variant="ghost"
                               icon={<Edit className="h-4 w-4" />}
                             >
                               Edit
                             </Button>
-                            <Button 
-                              size="sm" 
+                            <Button
+                              size="sm"
                               variant="ghost"
                               onClick={() => handleDelete(method.id)}
                               icon={<Trash2 className="h-4 w-4" />}
@@ -278,7 +277,7 @@ export const PaymentMethods: React.FC = () => {
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm mt-6">
               <div className="p-6 border-b border-gray-200 dark:border-gray-700">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  ChargeBike Wallet
+                  Eco Pulse Wallet
                 </h2>
               </div>
               <div className="p-6">
@@ -298,7 +297,7 @@ export const PaymentMethods: React.FC = () => {
                     Add Money
                   </Button>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 text-center">
                     <div className="text-lg font-bold text-gray-900 dark:text-white">₹1,250</div>

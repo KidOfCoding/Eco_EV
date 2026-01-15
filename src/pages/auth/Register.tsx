@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 export const Register: React.FC = () => {
   const [searchParams] = useSearchParams();
   const defaultRole = searchParams.get('role') || 'rider';
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,7 +31,7 @@ export const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match');
       return;
@@ -70,7 +70,7 @@ export const Register: React.FC = () => {
           <div className="flex justify-center">
             <div className="flex items-center space-x-2">
               <Zap className="h-10 w-10 text-blue-600" />
-              <span className="text-2xl font-bold text-gray-900 dark:text-white">ChargeBike</span>
+              <span className="text-2xl font-bold text-gray-900 dark:text-white">Eco Pulse</span>
             </div>
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
@@ -97,11 +97,10 @@ export const Register: React.FC = () => {
                   whileTap={{ scale: 0.98 }}
                   type="button"
                   onClick={() => setFormData(prev => ({ ...prev, role: 'rider' }))}
-                  className={`p-3 rounded-lg border-2 transition-all ${
-                    formData.role === 'rider'
+                  className={`p-3 rounded-lg border-2 transition-all ${formData.role === 'rider'
                       ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
                       : 'border-gray-300 dark:border-gray-600 hover:border-gray-400'
-                  }`}
+                    }`}
                 >
                   <div className="font-medium">Find Chargers</div>
                   <div className="text-xs opacity-70">I need to charge my EV</div>
@@ -111,11 +110,10 @@ export const Register: React.FC = () => {
                   whileTap={{ scale: 0.98 }}
                   type="button"
                   onClick={() => setFormData(prev => ({ ...prev, role: 'host' }))}
-                  className={`p-3 rounded-lg border-2 transition-all ${
-                    formData.role === 'host'
+                  className={`p-3 rounded-lg border-2 transition-all ${formData.role === 'host'
                       ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300'
                       : 'border-gray-300 dark:border-gray-600 hover:border-gray-400'
-                  }`}
+                    }`}
                 >
                   <div className="font-medium">Host Chargers</div>
                   <div className="text-xs opacity-70">I want to earn money</div>

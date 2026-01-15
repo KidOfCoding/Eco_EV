@@ -32,6 +32,7 @@ import { PaymentMethods } from './pages/PaymentMethods';
 import { PaymentSuccess } from './pages/PaymentSuccess';
 import { StationDetails } from './pages/StationDetails';
 import { HostAmenities } from './pages/HostAmenities';
+import { Pricing } from './pages/Pricing';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
                 <Route path="/admin-dashboard" element={<AdminDashboard />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/how-it-works" element={<HowItWorks />} />
+                <Route path="/pricing" element={<Pricing />} />
                 <Route path="/become-host" element={<BecomeHost />} />
                 <Route path="/safety" element={<Safety />} />
                 <Route path="/help" element={<Help />} />
@@ -71,7 +73,7 @@ function App() {
               </Routes>
             </main>
             <Footer />
-            <Toaster 
+            <Toaster
               position="bottom-right"
               toastOptions={{
                 duration: 4000,

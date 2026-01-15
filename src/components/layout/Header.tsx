@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  Zap, 
-  Menu, 
-  X, 
-  Sun, 
-  Moon, 
-  Bell, 
-  User, 
-  Settings, 
+import {
+  Zap,
+  Menu,
+  X,
+  Sun,
+  Moon,
+  Bell,
+  User,
+  Settings,
   LogOut,
   Wallet,
   CreditCard
@@ -53,26 +53,32 @@ export const Header: React.FC = () => {
               <Zap className="h-8 w-8 text-blue-600" />
             </motion.div>
             <span className="text-xl font-bold text-gray-900 dark:text-white">
-              ChargeBike
+              Eco Pulse
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link 
-              to="/map" 
+            <Link
+              to="/map"
               className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               Find Chargers
             </Link>
-            <Link 
-              to="/how-it-works" 
+            <Link
+              to="/pricing"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Pricing
+            </Link>
+            <Link
+              to="/how-it-works"
               className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               How It Works
             </Link>
-            <Link 
-              to="/become-host" 
+            <Link
+              to="/become-host"
               className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               Become a Host
@@ -202,22 +208,22 @@ export const Header: React.FC = () => {
             className="md:hidden border-t border-gray-200 dark:border-gray-700 py-4"
           >
             <div className="space-y-2">
-              <Link 
-                to="/map" 
+              <Link
+                to="/map"
                 className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Find Chargers
               </Link>
-              <Link 
-                to="/how-it-works" 
+              <Link
+                to="/how-it-works"
                 className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
                 onClick={() => setIsMenuOpen(false)}
               >
                 How It Works
               </Link>
-              <Link 
-                to="/become-host" 
+              <Link
+                to="/become-host"
                 className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
                 onClick={() => setIsMenuOpen(false)}
               >

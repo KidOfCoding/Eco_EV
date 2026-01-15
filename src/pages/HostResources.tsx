@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  BookOpen, 
-  Video, 
-  Download, 
-  Zap, 
-  Shield, 
+import {
+  BookOpen,
+  Video,
+  Download,
+  Zap,
+  Shield,
   DollarSign,
   Users,
   Settings,
@@ -122,7 +122,7 @@ export const HostResources: React.FC = () => {
       date: 'January 25, 2024',
       time: '7:00 PM IST',
       duration: '60 minutes',
-      description: 'Complete guide to becoming a successful ChargeBike host',
+      description: 'Complete guide to becoming a successful Eco Pulse host',
       registered: false
     },
     {
@@ -188,7 +188,7 @@ export const HostResources: React.FC = () => {
               Host Resources
             </h1>
             <p className="text-xl text-emerald-100 max-w-3xl mx-auto">
-              Everything you need to become a successful ChargeBike host. 
+              Everything you need to become a successful Eco Pulse host.
               Guides, tutorials, and support materials to help you maximize your earnings.
             </p>
           </motion.div>
@@ -303,8 +303,8 @@ export const HostResources: React.FC = () => {
                   <div>🕰️ {webinar.time}</div>
                   <div>⏱️ {webinar.duration}</div>
                 </div>
-                <Button 
-                  variant={webinar.registered ? "outline" : "primary"} 
+                <Button
+                  variant={webinar.registered ? "outline" : "primary"}
                   className="w-full"
                 >
                   {webinar.registered ? 'View Details' : 'Register Now'}

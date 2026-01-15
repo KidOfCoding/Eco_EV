@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Search, 
-  MessageCircle, 
-  Phone, 
-  Mail, 
+import {
+  Search,
+  MessageCircle,
+  Phone,
+  Mail,
   ChevronDown,
   ChevronUp,
   HelpCircle,
@@ -65,7 +65,7 @@ export const Help: React.FC = () => {
     {
       category: 'payments',
       question: 'What payment methods are accepted?',
-      answer: 'We accept UPI, credit/debit cards, net banking, and digital wallets like Paytm and Google Pay. You can also use your ChargeBike wallet for faster payments.'
+      answer: 'We accept UPI, credit/debit cards, net banking, and digital wallets like Paytm and Google Pay. You can also use your Eco Pulse wallet for faster payments.'
     },
     {
       category: 'payments',
@@ -87,7 +87,7 @@ export const Help: React.FC = () => {
   const filteredFaqs = faqs.filter(faq => {
     const matchesCategory = selectedCategory === 'all' || faq.category === selectedCategory;
     const matchesSearch = faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
+      faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -110,7 +110,7 @@ export const Help: React.FC = () => {
       icon: <Mail className="h-8 w-8" />,
       title: 'Email Support',
       description: 'Send us your queries via email',
-      action: 'support@chargebike.com',
+      action: 'support@ecopulse.com',
       available: 'Response within 2 hours'
     }
   ];
@@ -129,7 +129,7 @@ export const Help: React.FC = () => {
               Help & Support
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Get answers to your questions and support when you need it. 
+              Get answers to your questions and support when you need it.
               We're here to help you 24/7.
             </p>
           </motion.div>
@@ -167,11 +167,10 @@ export const Help: React.FC = () => {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                  selectedCategory === category.id
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                }`}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${selectedCategory === category.id
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  }`}
               >
                 {category.icon}
                 <span>{category.label}</span>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Zap, 
-  Users, 
-  MapPin, 
-  Shield, 
-  Award, 
+import {
+  Zap,
+  Users,
+  MapPin,
+  Shield,
+  Award,
   Heart,
   Target,
   Globe,
@@ -81,10 +81,10 @@ export const About: React.FC = () => {
             className="text-center"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              About ChargeBike
+              About Eco Pulse
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              We're on a mission to make EV charging accessible, affordable, and convenient for every Indian. 
+              We're on a mission to make EV charging accessible, affordable, and convenient for every Indian.
               By connecting EV riders with charging station hosts, we're building the future of sustainable transportation.
             </p>
           </motion.div>
@@ -106,7 +106,7 @@ export const About: React.FC = () => {
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Our Mission</h2>
                 </div>
                 <p className="text-lg text-gray-600 dark:text-gray-400">
-                  To democratize EV charging infrastructure by empowering individuals to become part of the charging network. 
+                  To democratize EV charging infrastructure by empowering individuals to become part of the charging network.
                   We believe that the future of EV charging lies in community-driven solutions that are accessible to everyone.
                 </p>
               </div>
@@ -116,7 +116,7 @@ export const About: React.FC = () => {
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Our Vision</h2>
                 </div>
                 <p className="text-lg text-gray-600 dark:text-gray-400">
-                  To create India's largest peer-to-peer EV charging network, making electric mobility convenient, 
+                  To create India's largest peer-to-peer EV charging network, making electric mobility convenient,
                   affordable, and sustainable for millions of Indians while creating income opportunities for hosts.
                 </p>
               </div>

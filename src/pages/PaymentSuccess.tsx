@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  CheckCircle, 
-  Download, 
-  Share2, 
+import {
+  CheckCircle,
+  Download,
+  Share2,
   Calendar,
   CreditCard,
   Clock,
@@ -45,7 +45,7 @@ export const PaymentSuccess: React.FC = () => {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'ChargeBike Payment Successful',
+        title: 'Eco Pulse Payment Successful',
         text: `Payment of ₹${transactionDetails.amount} completed successfully!`,
         url: window.location.href
       });
@@ -85,7 +85,7 @@ export const PaymentSuccess: React.FC = () => {
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             Transaction Details
           </h2>
-          
+
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">Transaction ID</span>
@@ -124,7 +124,7 @@ export const PaymentSuccess: React.FC = () => {
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             Booking Summary
           </h2>
-          
+
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
               <Zap className="h-5 w-5 text-blue-600" />
@@ -145,7 +145,7 @@ export const PaymentSuccess: React.FC = () => {
                   {new Date(transactionDetails.scheduledTime).toLocaleDateString()}
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  at {new Date(transactionDetails.scheduledTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                  at {new Date(transactionDetails.scheduledTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
             </div>
@@ -166,23 +166,23 @@ export const PaymentSuccess: React.FC = () => {
 
         {/* Action Buttons */}
         <div className="space-y-3">
-          <Button 
+          <Button
             className="w-full"
             onClick={handleDownloadReceipt}
             icon={<Download className="h-4 w-4" />}
           >
             Download Receipt
           </Button>
-          
+
           <div className="grid grid-cols-2 gap-3">
-            <Button 
+            <Button
               variant="outline"
               onClick={handleShare}
               icon={<Share2 className="h-4 w-4" />}
             >
               Share
             </Button>
-            <Button 
+            <Button
               variant="outline"
               onClick={() => navigate('/rider-dashboard')}
             >
@@ -190,8 +190,8 @@ export const PaymentSuccess: React.FC = () => {
             </Button>
           </div>
 
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             className="w-full"
             onClick={() => navigate('/map')}
           >

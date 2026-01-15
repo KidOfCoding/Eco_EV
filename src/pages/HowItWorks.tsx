@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  UserPlus, 
-  MapPin, 
-  Calendar, 
-  Zap, 
-  CreditCard, 
+import {
+  UserPlus,
+  MapPin,
+  Calendar,
+  Zap,
+  CreditCard,
   Star,
   Smartphone,
   Shield,
@@ -118,7 +118,7 @@ export const HowItWorks: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              How ChargeBike Works
+              How Eco Pulse Works
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
               Simple, secure, and seamless EV charging experience for riders and earning opportunities for hosts
@@ -169,8 +169,8 @@ export const HowItWorks: React.FC = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               onClick={() => navigate('/register?role=rider')}
               icon={<UserPlus className="h-5 w-5" />}
             >
@@ -222,8 +222,8 @@ export const HowItWorks: React.FC = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               variant="secondary"
               onClick={() => navigate('/register?role=host')}
               icon={<Zap className="h-5 w-5" />}

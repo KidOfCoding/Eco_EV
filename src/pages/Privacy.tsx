@@ -91,7 +91,7 @@ export const Privacy: React.FC = () => {
               Introduction
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              ChargeBike ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform, mobile application, and related services. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the platform.
+              Eco Pulse ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform, mobile application, and related services. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the platform.
             </p>
           </motion.div>
         </div>
@@ -188,7 +188,7 @@ export const Privacy: React.FC = () => {
                   <div className="h-8 w-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
                     <Shield className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                   </div>
-                  <span className="text-gray-900 dark:text-white">privacy@chargebike.com</span>
+                  <span className="text-gray-900 dark:text-white">privacy@ecopulse.com</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="h-8 w-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">

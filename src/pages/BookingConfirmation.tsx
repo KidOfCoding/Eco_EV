@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  CheckCircle, 
-  Calendar, 
-  MapPin, 
-  Clock, 
+import {
+  CheckCircle,
+  Calendar,
+  MapPin,
+  Clock,
   Zap,
   CreditCard,
   Download,
@@ -26,7 +26,7 @@ export const BookingConfirmation: React.FC = () => {
       navigate('/map');
       return;
     }
-    
+
     // Show success notification
     toast.success('Booking confirmed! You will receive SMS and email confirmations.');
   }, [booking, station, navigate]);
@@ -42,7 +42,7 @@ export const BookingConfirmation: React.FC = () => {
   const handleShareBooking = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'ChargeBike Booking Confirmation',
+        title: 'Eco Pulse Booking Confirmation',
         text: `I've booked a charging session at ${station.title}`,
         url: window.location.href
       });
@@ -201,8 +201,8 @@ export const BookingConfirmation: React.FC = () => {
                 </div>
               </div>
 
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="w-full mt-6"
                 onClick={handleContactHost}
                 icon={<MessageCircle className="h-4 w-4" />}
@@ -243,21 +243,21 @@ export const BookingConfirmation: React.FC = () => {
           transition={{ delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center mt-8"
         >
-          <Button 
+          <Button
             variant="outline"
             onClick={handleDownloadReceipt}
             icon={<Download className="h-4 w-4" />}
           >
             Download Receipt
           </Button>
-          <Button 
+          <Button
             variant="outline"
             onClick={handleShareBooking}
             icon={<Share2 className="h-4 w-4" />}
           >
             Share Booking
           </Button>
-          <Button 
+          <Button
             onClick={() => navigate('/rider-dashboard')}
           >
             Go to Dashboard

@@ -70,7 +70,7 @@ export const Cookies: React.FC = () => {
               Cookie Policy
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Learn about how we use cookies and similar technologies to enhance your experience on ChargeBike.
+              Learn about how we use cookies and similar technologies to enhance your experience on Eco Pulse.
             </p>
           </motion.div>
         </div>
@@ -101,7 +101,7 @@ export const Cookies: React.FC = () => {
               Cookies are small text files that are stored on your device when you visit our website. They help us provide you with a better experience by remembering your preferences, keeping you logged in, and understanding how you use our platform.
             </p>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              We use both session cookies (which expire when you close your browser) and persistent cookies (which remain on your device for a set period) to enhance your experience on ChargeBike.
+              We use both session cookies (which expire when you close your browser) and persistent cookies (which remain on your device for a set period) to enhance your experience on Eco Pulse.
             </p>
           </motion.div>
         </div>
@@ -246,7 +246,7 @@ export const Cookies: React.FC = () => {
                 <div className="flex items-start space-x-3">
                   <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" />
                   <p className="text-yellow-800 dark:text-yellow-200">
-                    <strong>Note:</strong> Disabling certain cookies may affect the functionality of our platform. 
+                    <strong>Note:</strong> Disabling certain cookies may affect the functionality of our platform.
                     Essential cookies cannot be disabled as they are necessary for basic operations.
                   </p>
                 </div>

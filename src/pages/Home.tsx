@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  Zap, 
-  MapPin, 
-  Clock, 
-  Shield, 
-  Star, 
+import {
+  Zap,
+  MapPin,
+  Clock,
+  Shield,
+  Star,
   Smartphone,
   Users,
   TrendingUp,
-  ArrowRight
+  ArrowRight,
+  Sun
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useAuth } from '../contexts/AuthContext';
@@ -51,9 +52,9 @@ export const Home: React.FC = () => {
       description: 'Reserve your charging slot and never worry about availability'
     },
     {
-      icon: <Shield className="h-6 w-6" />,
-      title: 'Secure Payments',
-      description: 'Multiple payment options with secure transactions and instant receipts'
+      icon: <Sun className="h-6 w-6" />,
+      title: '100% Solar Energy',
+      description: 'Truly green charging powered entirely by renewable solar energy'
     },
     {
       icon: <Smartphone className="h-6 w-6" />,
@@ -66,23 +67,52 @@ export const Home: React.FC = () => {
     { number: '10,000+', label: 'Active Chargers' },
     { number: '50,000+', label: 'Happy Users' },
     { number: '25+', label: 'Cities' },
-    { number: '4.8', label: 'Average Rating' }
+    { number: '4.8', label: 'Average Rating' },
+    { number: '100%', label: 'Solar Energy' }
   ];
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-emerald-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* Hero Section */}
+      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: "url('/hero banner.jpeg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/80 to-slate-900/20 z-0" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full h-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-                Charge Your
-                <span className="text-emerald-300"> EV Bike</span>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5, type: "spring" }}
+                className="inline-flex items-center space-x-2 bg-yellow-400/20 backdrop-blur-sm px-4 py-2 rounded-full border border-yellow-400/50 mb-6"
+              >
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  <Sun className="h-5 w-5 text-yellow-300 fill-yellow-300" />
+                </motion.div>
+                <span className="text-yellow-100 font-medium">100% Solar Powered</span>
+              </motion.div>
+
+              <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 text-white">
+                Charge Your <span className="text-emerald-300 whitespace-nowrap">EV Gang</span>
                 <br />
                 Anywhere, Anytime
               </h1>
@@ -90,17 +120,17 @@ export const Home: React.FC = () => {
                 Connect with thousands of charging stations across India. Book, charge, and pay - all in one seamless experience.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   variant="secondary"
                   onClick={handleGetStarted}
                   icon={<Zap className="h-5 w-5" />}
                 >
                   {user ? 'Go to Dashboard' : 'Get Started'}
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
+                <Button
+                  size="lg"
+                  className="bg-white text-blue-600 hover:bg-blue-50"
                   onClick={() => navigate('/map')}
                   icon={<MapPin className="h-5 w-5" />}
                 >
@@ -115,8 +145,8 @@ export const Home: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-                <div className="bg-white rounded-xl p-6 mb-4">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
+                <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 mb-4">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <div className="h-10 w-10 bg-green-500 rounded-full flex items-center justify-center">
@@ -143,7 +173,7 @@ export const Home: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-4 text-center">
                   <div className="bg-white/20 rounded-lg p-4">
                     <div className="text-2xl font-bold">2.5kW</div>
@@ -163,7 +193,7 @@ export const Home: React.FC = () => {
       {/* Stats Section */}
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -193,7 +223,7 @@ export const Home: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Why Choose ChargeBike?
+              Why Choose Eco Pulse?
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400">
               Experience the future of EV charging with our comprehensive platform
@@ -307,16 +337,16 @@ export const Home: React.FC = () => {
               Whether you're looking to charge your EV or earn money by hosting, we've got you covered.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 variant="secondary"
                 onClick={() => navigate('/register?role=rider')}
                 icon={<Users className="h-5 w-5" />}
               >
                 Start Riding
               </Button>
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 variant="outline"
                 onClick={() => navigate('/register?role=host')}
                 icon={<TrendingUp className="h-5 w-5" />}
