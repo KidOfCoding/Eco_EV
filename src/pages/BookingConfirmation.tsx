@@ -11,7 +11,8 @@ import {
   Download,
   Share2,
   MessageCircle,
-  Star
+  Star,
+  AlertTriangle
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import toast from 'react-hot-toast';
@@ -28,7 +29,14 @@ export const BookingConfirmation: React.FC = () => {
     }
 
     // Show success notification
-    toast.success('Booking confirmed! You will receive SMS and email confirmations.');
+    toast.success('Booking confirmed! Redirecting to dashboard in 5s...');
+
+    // Auto-redirect to dashboard after 5 seconds
+    const timer = setTimeout(() => {
+      navigate('/rider-dashboard');
+    }, 5000);
+
+    return () => clearTimeout(timer);
   }, [booking, station, navigate]);
 
   if (!booking || !station) {
@@ -42,7 +50,7 @@ export const BookingConfirmation: React.FC = () => {
   const handleShareBooking = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'Eco Pulse Booking Confirmation',
+        title: 'ECOPluse Booking Confirmation',
         text: `I've booked a charging session at ${station.title}`,
         url: window.location.href
       });
@@ -84,16 +92,23 @@ export const BookingConfirmation: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-8 mb-6"
             >
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-                Booking Details
-              </h2>
+              <div className="flex justify-between items-start mb-6">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  Booking Details
+                </h2>
+                <div className="bg-blue-50 dark:bg-blue-900/30 px-3 py-1 rounded-full border border-blue-100 dark:border-blue-800">
+                  <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+                    ID: {booking.id}
+                  </span>
+                </div>
+              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
-                    <Calendar className="h-5 w-5 text-blue-600" />
+                    <Calendar className="h-5 w-5 text-gray-500" />
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Date & Time</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Date & Time</p>
                       <p className="font-medium text-gray-900 dark:text-white">
                         {new Date(booking.date).toLocaleDateString()} at {booking.time}
                       </p>
@@ -101,9 +116,9 @@ export const BookingConfirmation: React.FC = () => {
                   </div>
 
                   <div className="flex items-center space-x-3">
-                    <Clock className="h-5 w-5 text-blue-600" />
+                    <Clock className="h-5 w-5 text-gray-500" />
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Duration</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Duration</p>
                       <p className="font-medium text-gray-900 dark:text-white">
                         {booking.duration} minutes
                       </p>
@@ -111,104 +126,81 @@ export const BookingConfirmation: React.FC = () => {
                   </div>
 
                   <div className="flex items-center space-x-3">
-                    <Zap className="h-5 w-5 text-blue-600" />
+                    <Zap className="h-5 w-5 text-gray-500" />
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Power & Socket</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Power</p>
                       <p className="font-medium text-gray-900 dark:text-white">
-                        {station.powerCapacity} kW • {station.socketType}
+                        {station.powerCapacity} kW ({station.socketType})
                       </p>
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <MapPin className="h-5 w-5 text-blue-600" />
+                  <div className="flex items-start space-x-3">
+                    <MapPin className="h-5 w-5 text-gray-500 mt-0.5" />
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Location</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Location</p>
                       <p className="font-medium text-gray-900 dark:text-white">
+                        {station.title}
+                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
                         {station.address}
                       </p>
                     </div>
                   </div>
-
-                  <div className="flex items-center space-x-3">
-                    <CreditCard className="h-5 w-5 text-blue-600" />
-                    <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Total Amount</p>
-                      <p className="font-medium text-gray-900 dark:text-white">
-                        ₹{booking.amount}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-600" />
-                    <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Status</p>
-                      <p className="font-medium text-green-600 capitalize">
-                        {booking.status}
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
-            </motion.div>
 
-            {/* Host Information */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-8 mb-6"
-            >
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-                Host Information
-              </h2>
-
-              <div className="flex items-center space-x-4 mb-6">
-                <div className="h-16 w-16 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
-                  {station.hostName.charAt(0)}
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {station.hostName}
+              {/* Amenities Section */}
+              {booking.amenities && booking.amenities.length > 0 && (
+                <div className="border-t border-gray-100 dark:border-gray-700 pt-6 mb-6">
+                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                    Selected Amenities
                   </h3>
-                  <div className="flex items-center space-x-2">
-                    <Star className="h-4 w-4 text-yellow-400" />
-                    <span className="text-sm font-medium">{station.hostRating}</span>
-                    <span className="text-sm text-gray-500">• Verified Host</span>
+                  <div className="space-y-2">
+                    {booking.amenities.map((item: any, idx: number) => (
+                      <div key={idx} className="flex justify-between text-sm">
+                        <span className="text-gray-700 dark:text-gray-300">{item.name}</span>
+                        <span className="text-gray-900 dark:text-white font-medium">₹{item.price}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Cost Breakdown */}
+              <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                  Payment Summary
+                </h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">EV Charging Cost</span>
+                    <span className="text-gray-900 dark:text-white">₹{booking.breakdown?.energyCharge || 0}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Platform Fee</span>
+                    <span className="text-gray-900 dark:text-white">₹{booking.breakdown?.platformFee || 0}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">GST (18%)</span>
+                    <span className="text-gray-900 dark:text-white">₹{booking.breakdown?.gst || 0}</span>
+                  </div>
+                  {booking.breakdown?.amenitiesCost > 0 && (
+                    <div className="flex justify-between text-blue-600 dark:text-blue-400">
+                      <span>Amenities Total</span>
+                      <span>₹{booking.breakdown?.amenitiesCost}</span>
+                    </div>
+                  )}
+                  <div className="border-t border-gray-200 dark:border-gray-600 pt-2 mt-2">
+                    <div className="flex justify-between text-base font-bold">
+                      <span className="text-gray-900 dark:text-white">Total Amount Paid</span>
+                      <span className="text-green-600">₹{booking.amount}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <div className="space-y-3">
-                <h4 className="font-medium text-gray-900 dark:text-white">
-                  Station: {station.title}
-                </h4>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {station.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {station.amenities.map((amenity: string, index: number) => (
-                    <span
-                      key={index}
-                      className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded"
-                    >
-                      {amenity}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <Button
-                variant="outline"
-                className="w-full mt-6"
-                onClick={handleContactHost}
-                icon={<MessageCircle className="h-4 w-4" />}
-              >
-                Contact Host
-              </Button>
             </motion.div>
 
             {/* Important Information */}
@@ -228,7 +220,6 @@ export const BookingConfirmation: React.FC = () => {
                     <li>• Arrive on time for your booking</li>
                     <li>• Bring your charging cable if required</li>
                     <li>• Contact host if you're running late</li>
-                    <li>• Follow safety guidelines during charging</li>
                   </ul>
                 </div>
               </div>

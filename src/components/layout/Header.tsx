@@ -53,7 +53,7 @@ export const Header: React.FC = () => {
               <Zap className="h-8 w-8 text-blue-600" />
             </motion.div>
             <span className="text-xl font-bold text-gray-900 dark:text-white">
-              Eco Pulse
+              ECOPluse
             </span>
           </Link>
 
@@ -214,6 +214,13 @@ export const Header: React.FC = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Find Chargers
+              </Link>
+              <Link
+                to="/pricing"
+                className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Pricing
               </Link>
               <Link
                 to="/how-it-works"

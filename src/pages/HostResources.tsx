@@ -122,7 +122,7 @@ export const HostResources: React.FC = () => {
       date: 'January 25, 2024',
       time: '7:00 PM IST',
       duration: '60 minutes',
-      description: 'Complete guide to becoming a successful Eco Pulse host',
+      description: 'Complete guide to becoming a successful ECOPluse host',
       registered: false
     },
     {
@@ -188,7 +188,7 @@ export const HostResources: React.FC = () => {
               Host Resources
             </h1>
             <p className="text-xl text-emerald-100 max-w-3xl mx-auto">
-              Everything you need to become a successful Eco Pulse host.
+              Everything you need to become a successful ECOPluse host.
               Guides, tutorials, and support materials to help you maximize your earnings.
             </p>
           </motion.div>

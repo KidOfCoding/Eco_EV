@@ -81,7 +81,7 @@ export const About: React.FC = () => {
             className="text-center"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              About Eco Pulse
+              About ECOPluse
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
               We're on a mission to make EV charging accessible, affordable, and convenient for every Indian.

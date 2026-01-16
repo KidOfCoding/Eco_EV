@@ -3,20 +3,15 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   MapPin,
-  Clock,
-  Zap,
   Star,
-  Calendar,
   CreditCard,
   Wallet,
   ArrowLeft,
   CheckCircle,
-  AlertTriangle,
   User,
   Shield
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
-import { Input } from '../components/ui/Input';
 import { useAuth } from '../contexts/AuthContext';
 import { ChargingStation } from '../types';
 import toast from 'react-hot-toast';
@@ -32,10 +27,37 @@ export const BookingFlow: React.FC = () => {
   const [selectedTime, setSelectedTime] = useState('');
   const [duration, setDuration] = useState(60);
   const [paymentMethod, setPaymentMethod] = useState('wallet');
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
   // Mock station data - in real app, fetch from API
   const [station, setStation] = useState<ChargingStation | null>(null);
+
+  // Amenities Data
+  const AMENITIES_DATA = [
+    {
+      category: 'Food',
+      items: [
+        { id: 'food_1', name: 'South Indian Breakfast', price: 80, description: 'Dosa, Idli, Vada' },
+        { id: 'food_2', name: 'Local Thali', price: 120, description: 'Traditional meal with rice, dal, vegetables' },
+        { id: 'food_3', name: 'Street Food Combo', price: 60, description: 'Chaat, Pani Puri, Bhel' },
+      ]
+    },
+    {
+      category: 'Accommodation',
+      items: [
+        { id: 'stay_1', name: 'Budget Room', price: 800, description: 'Clean AC room with basic amenities (per night)' },
+        { id: 'stay_2', name: 'Premium Stay', price: 1500, description: 'Deluxe room with WiFi, breakfast included (per night)' },
+      ]
+    },
+    {
+      category: 'Entertainment',
+      items: [
+        { id: 'ent_1', name: 'Local Sightseeing', price: 300, description: 'Guided tour of nearby attractions' },
+        { id: 'ent_2', name: 'Cultural Experience', price: 200, description: 'Traditional music/dance performance' },
+      ]
+    }
+  ];
 
   useEffect(() => {
     // Mock fetch station data
@@ -68,10 +90,37 @@ export const BookingFlow: React.FC = () => {
     '18:00', '18:30', '19:00', '19:30', '20:00', '20:30'
   ];
 
+  const getAmenitiesTotal = () => {
+    let total = 0;
+    AMENITIES_DATA.forEach(cat => {
+      cat.items.forEach(item => {
+        if (selectedAmenities.includes(item.id)) {
+          total += item.price;
+        }
+      });
+    });
+    return total;
+  };
+
+  const getChargingCost = () => {
+    if (!station) return 0;
+    return Math.round((duration / 60) * station.powerCapacity * station.pricing.perKwh);
+  };
+
+  function calculateTotal() {
+    if (!station) return 0;
+    const baseAmount = getChargingCost();
+    const platformFee = Math.round(baseAmount * 0.05); // 5% platform fee
+    const gst = Math.round(baseAmount * 0.18); // 18% GST
+    const amenitiesCost = getAmenitiesTotal();
+
+    return baseAmount + platformFee + gst + amenitiesCost;
+  }
+
   const paymentMethods = [
     {
       id: 'wallet',
-      name: 'Eco Pulse Wallet',
+      name: 'ECOPluse Wallet',
       description: `Balance: ₹${user?.wallet || 0}`,
       icon: <Wallet className="h-6 w-6" />,
       available: (user?.wallet || 0) >= calculateTotal()
@@ -92,16 +141,14 @@ export const BookingFlow: React.FC = () => {
     }
   ];
 
-  function calculateTotal() {
-    if (!station) return 0;
-    const baseAmount = (duration / 60) * station.powerCapacity * station.pricing.perKwh;
-    const platformFee = baseAmount * 0.05; // 5% platform fee
-    const gst = baseAmount * 0.18; // 18% GST
-    return Math.round(baseAmount + platformFee + gst);
-  }
-
   const handleBooking = async () => {
-    if (!user || !station) return;
+    if (!station) return;
+
+    if (!user) {
+      toast.error('Please log in to complete your booking');
+      navigate('/login');
+      return;
+    }
 
     setLoading(true);
 
@@ -109,31 +156,44 @@ export const BookingFlow: React.FC = () => {
       // Simulate booking process
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      const bookingAmount = calculateTotal();
+      // Calculate final values
+      const baseAmount = getChargingCost();
+      const platformFee = Math.round(baseAmount * 0.05);
+      const gst = Math.round(baseAmount * 0.18);
+      const amenitiesCost = getAmenitiesTotal();
+      const totalAmount = calculateTotal();
 
-      if (paymentMethod === 'wallet') {
-        if ((user.wallet || 0) < bookingAmount) {
-          toast.error('Insufficient wallet balance');
-          setLoading(false);
-          return;
-        }
-        updateUser({ wallet: (user.wallet || 0) - bookingAmount });
-      }
+      // Resolve selected amenities details
+      const selectedAmenityDetails = AMENITIES_DATA
+        .flatMap(cat => cat.items)
+        .filter(item => selectedAmenities.includes(item.id));
 
       // Create booking (mock)
       const booking = {
-        id: Math.random().toString(36),
+        id: Math.random().toString(36).substr(2, 9).toUpperCase(),
         stationId: station.id,
         stationTitle: station.title,
+        stationAddress: station.address,
         hostName: station.hostName,
         date: selectedDate,
         time: selectedTime,
         duration,
-        amount: bookingAmount,
-        status: 'confirmed'
+        amount: totalAmount,
+        status: 'confirmed',
+        amenities: selectedAmenityDetails,
+        breakdown: {
+          energyCharge: baseAmount,
+          platformFee,
+          gst,
+          amenitiesCost
+        }
       };
 
-      toast.success('Booking confirmed successfully!');
+      // Save to local storage for persistence (mock backend)
+      const existingBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+      localStorage.setItem('bookings', JSON.stringify([booking, ...existingBookings]));
+
+      toast.success('Payment successful! Booking confirmed.');
       navigate('/booking-confirmation', {
         state: { booking, station }
       });
@@ -148,6 +208,14 @@ export const BookingFlow: React.FC = () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     return tomorrow.toISOString().split('T')[0];
+  };
+
+  const toggleAmenity = (id: string) => {
+    setSelectedAmenities(prev =>
+      prev.includes(id)
+        ? prev.filter(item => item !== id)
+        : [...prev, id]
+    );
   };
 
   if (!station) {
@@ -189,8 +257,8 @@ export const BookingFlow: React.FC = () => {
             {[1, 2, 3].map((step) => (
               <div key={step} className="flex items-center">
                 <div className={`h-10 w-10 rounded-full flex items-center justify-center font-semibold ${step <= currentStep
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
                   }`}>
                   {step < currentStep ? <CheckCircle className="h-5 w-5" /> : step}
                 </div>
@@ -256,8 +324,8 @@ export const BookingFlow: React.FC = () => {
                           key={time}
                           onClick={() => setSelectedTime(time)}
                           className={`p-3 rounded-lg border-2 transition-all ${selectedTime === time
-                              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                              : 'border-gray-300 dark:border-gray-600 hover:border-gray-400'
+                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                            : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:border-gray-400'
                             }`}
                         >
                           {time}
@@ -331,46 +399,26 @@ export const BookingFlow: React.FC = () => {
                           {station.powerCapacity} kW
                         </span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600 dark:text-gray-400">Socket Type</span>
-                        <span className="font-medium text-gray-900 dark:text-white">
-                          {station.socketType}
-                        </span>
-                      </div>
                     </div>
                   </div>
 
-                  {/* Cost Breakdown */}
+                  {/* Cost Breakdown - Moved to Step 3 or kept simple here */}
                   <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
-                      Cost Breakdown
+                      Estimated Cost
                     </h3>
                     <div className="space-y-2">
                       <div className="flex justify-between">
                         <span className="text-gray-600 dark:text-gray-400">
-                          Charging Cost ({(duration / 60).toFixed(1)} hrs × {station.powerCapacity} kW × ₹{station.pricing.perKwh})
+                          Charging Cost
                         </span>
                         <span className="text-gray-900 dark:text-white">
-                          ₹{Math.round((duration / 60) * station.powerCapacity * station.pricing.perKwh)}
+                          ₹{getChargingCost()}
                         </span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600 dark:text-gray-400">Platform Fee (5%)</span>
-                        <span className="text-gray-900 dark:text-white">
-                          ₹{Math.round(((duration / 60) * station.powerCapacity * station.pricing.perKwh) * 0.05)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600 dark:text-gray-400">GST (18%)</span>
-                        <span className="text-gray-900 dark:text-white">
-                          ₹{Math.round(((duration / 60) * station.powerCapacity * station.pricing.perKwh) * 0.18)}
-                        </span>
-                      </div>
-                      <div className="border-t border-gray-300 dark:border-gray-600 pt-2">
-                        <div className="flex justify-between font-semibold text-lg">
-                          <span className="text-gray-900 dark:text-white">Total Amount</span>
-                          <span className="text-blue-600">₹{calculateTotal()}</span>
-                        </div>
+                      <div className="flex justify-between items-center pt-2 border-t border-gray-300 dark:border-gray-600 font-semibold">
+                        <span>Subtotal (before tax)</span>
+                        <span>₹{getChargingCost()}</span>
                       </div>
                     </div>
                   </div>
@@ -387,7 +435,7 @@ export const BookingFlow: React.FC = () => {
                       onClick={() => setCurrentStep(3)}
                       className="flex-1"
                     >
-                      Proceed to Payment
+                      Proceed to Add-ons & Pay
                     </Button>
                   </div>
                 </div>
@@ -404,75 +452,32 @@ export const BookingFlow: React.FC = () => {
                       Enhance your charging experience with local food, accommodation, and entertainment options
                     </p>
 
-                    {/* Food Options */}
-                    <div className="mb-6">
-                      <h4 className="font-medium text-gray-900 dark:text-white mb-3">Local Food Options</h4>
-                      <div className="space-y-2">
-                        <label className="flex items-center">
-                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded mr-3" />
-                          <div className="flex-1">
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">South Indian Breakfast</span>
-                            <p className="text-xs text-gray-500">Dosa, Idli, Vada - ₹80</p>
-                          </div>
-                        </label>
-                        <label className="flex items-center">
-                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded mr-3" />
-                          <div className="flex-1">
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">Local Thali</span>
-                            <p className="text-xs text-gray-500">Traditional meal with rice, dal, vegetables - ₹120</p>
-                          </div>
-                        </label>
-                        <label className="flex items-center">
-                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded mr-3" />
-                          <div className="flex-1">
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">Street Food Combo</span>
-                            <p className="text-xs text-gray-500">Chaat, Pani Puri, Bhel - ₹60</p>
-                          </div>
-                        </label>
+                    {AMENITIES_DATA.map((category) => (
+                      <div key={category.category} className="mb-6">
+                        <h4 className="font-medium text-gray-900 dark:text-white mb-3">
+                          {category.category} Options
+                        </h4>
+                        <div className="space-y-2">
+                          {category.items.map((item) => (
+                            <label key={item.id} className="flex items-center cursor-pointer p-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
+                              <input
+                                type="checkbox"
+                                className="h-4 w-4 text-blue-600 rounded mr-3"
+                                checked={selectedAmenities.includes(item.id)}
+                                onChange={() => toggleAmenity(item.id)}
+                              />
+                              <div className="flex-1">
+                                <div className="flex justify-between">
+                                  <span className="text-sm font-medium text-gray-900 dark:text-white">{item.name}</span>
+                                  <span className="text-sm font-medium text-blue-600">₹{item.price}</span>
+                                </div>
+                                <p className="text-xs text-gray-500">{item.description}</p>
+                              </div>
+                            </label>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-
-                    {/* Accommodation Options */}
-                    <div className="mb-6">
-                      <h4 className="font-medium text-gray-900 dark:text-white mb-3">Accommodation Options</h4>
-                      <div className="space-y-2">
-                        <label className="flex items-center">
-                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded mr-3" />
-                          <div className="flex-1">
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">Budget Room</span>
-                            <p className="text-xs text-gray-500">Clean AC room with basic amenities - ₹800/night</p>
-                          </div>
-                        </label>
-                        <label className="flex items-center">
-                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded mr-3" />
-                          <div className="flex-1">
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">Premium Stay</span>
-                            <p className="text-xs text-gray-500">Deluxe room with WiFi, breakfast included - ₹1500/night</p>
-                          </div>
-                        </label>
-                      </div>
-                    </div>
-
-                    {/* Entertainment Options */}
-                    <div className="mb-6">
-                      <h4 className="font-medium text-gray-900 dark:text-white mb-3">Entertainment Options</h4>
-                      <div className="space-y-2">
-                        <label className="flex items-center">
-                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded mr-3" />
-                          <div className="flex-1">
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">Local Sightseeing</span>
-                            <p className="text-xs text-gray-500">Guided tour of nearby attractions - ₹300</p>
-                          </div>
-                        </label>
-                        <label className="flex items-center">
-                          <input type="checkbox" className="h-4 w-4 text-blue-600 rounded mr-3" />
-                          <div className="flex-1">
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">Cultural Experience</span>
-                            <p className="text-xs text-gray-500">Traditional music/dance performance - ₹200</p>
-                          </div>
-                        </label>
-                      </div>
-                    </div>
+                    ))}
                   </div>
 
                   <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
@@ -484,18 +489,18 @@ export const BookingFlow: React.FC = () => {
                       <div
                         key={method.id}
                         className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${paymentMethod === method.id
-                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                            : method.available
-                              ? 'border-gray-300 dark:border-gray-600 hover:border-gray-400'
-                              : 'border-gray-200 dark:border-gray-700 opacity-50 cursor-not-allowed'
+                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                          : method.available
+                            ? 'border-gray-300 dark:border-gray-600 hover:border-gray-400'
+                            : 'border-gray-200 dark:border-gray-700 opacity-50 cursor-not-allowed'
                           }`}
                         onClick={() => method.available && setPaymentMethod(method.id)}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
                             <div className={`h-10 w-10 rounded-lg flex items-center justify-center ${method.available
-                                ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
-                                : 'bg-gray-100 dark:bg-gray-700 text-gray-400'
+                              ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
+                              : 'bg-gray-100 dark:bg-gray-700 text-gray-400'
                               }`}>
                               {method.icon}
                             </div>
@@ -533,21 +538,6 @@ export const BookingFlow: React.FC = () => {
                         </div>
                       </div>
                     ))}
-                  </div>
-
-                  {/* Security Notice */}
-                  <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
-                    <div className="flex items-start space-x-3">
-                      <Shield className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5" />
-                      <div>
-                        <h4 className="font-medium text-green-800 dark:text-green-200">
-                          Secure Payment
-                        </h4>
-                        <p className="text-sm text-green-700 dark:text-green-300">
-                          Your payment is protected by 256-bit SSL encryption and PCI DSS compliance.
-                        </p>
-                      </div>
-                    </div>
                   </div>
 
                   <div className="flex space-x-4">
@@ -604,61 +594,56 @@ export const BookingFlow: React.FC = () => {
                 </span>
               </div>
 
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Socket Type</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">
-                    {station.socketType}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Power</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">
-                    {station.powerCapacity} kW
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Rate</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">
-                    ₹{station.pricing.perKwh}/kWh
-                  </span>
-                </div>
-              </div>
-
-              <div className="space-y-2 mb-6">
-                <h4 className="text-sm font-medium text-gray-900 dark:text-white">
-                  Amenities
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {station.amenities.map((amenity, index) => (
-                    <span
-                      key={index}
-                      className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded"
-                    >
-                      {amenity}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
               {currentStep > 1 && (
                 <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
                   <h4 className="font-medium text-gray-900 dark:text-white mb-3">
-                    Booking Summary
+                    Booking Breakdown
                   </h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600 dark:text-gray-400">Date & Time</span>
-                      <span className="text-gray-900 dark:text-white">
-                        {new Date(selectedDate).toLocaleDateString()} at {selectedTime}
+                      <span className="text-gray-900 dark:text-white text-right">
+                        {new Date(selectedDate).toLocaleDateString()}<br />{selectedTime}
                       </span>
                     </div>
+
+                    <div className="pt-2 border-t border-gray-100 dark:border-gray-700"></div>
+
                     <div className="flex justify-between">
-                      <span className="text-gray-600 dark:text-gray-400">Duration</span>
-                      <span className="text-gray-900 dark:text-white">{duration} mins</span>
+                      <span className="text-gray-600 dark:text-gray-400">EV Charges</span>
+                      <span className="text-gray-900 dark:text-white">₹{getChargingCost()}</span>
                     </div>
-                    <div className="flex justify-between font-semibold text-lg border-t border-gray-300 dark:border-gray-600 pt-2">
-                      <span className="text-gray-900 dark:text-white">Total</span>
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>Platform Fee (5%)</span>
+                      <span>₹{Math.round(getChargingCost() * 0.05)}</span>
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>GST (18%)</span>
+                      <span>₹{Math.round(getChargingCost() * 0.18)}</span>
+                    </div>
+
+                    {getAmenitiesTotal() > 0 && (
+                      <>
+                        <div className="pt-2 border-t border-gray-100 dark:border-gray-700"></div>
+                        <div className="flex justify-between font-medium">
+                          <span className="text-gray-900 dark:text-white">Amenities</span>
+                          <span className="text-gray-900 dark:text-white">₹{getAmenitiesTotal()}</span>
+                        </div>
+                        {selectedAmenities.length > 0 && (
+                          <div className="text-xs text-gray-500 pl-2">
+                            {AMENITIES_DATA.flatMap(cat => cat.items).filter(i => selectedAmenities.includes(i.id)).map(amenity => (
+                              <div key={amenity.id} className="flex justify-between">
+                                <span className="truncate w-32">{amenity.name}</span>
+                                <span>₹{amenity.price}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    )}
+
+                    <div className="flex justify-between font-bold text-lg border-t border-gray-300 dark:border-gray-600 pt-2 mt-2">
+                      <span className="text-gray-900 dark:text-white">Total Pay</span>
                       <span className="text-blue-600">₹{calculateTotal()}</span>
                     </div>
                   </div>

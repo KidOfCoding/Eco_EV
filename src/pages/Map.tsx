@@ -20,13 +20,24 @@ import 'leaflet/dist/leaflet.css';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 // Create custom marker icon
-const createCustomIcon = () => {
+const createCustomIcon = (status: string = 'available') => {
+  let colorClass = 'from-green-500 to-emerald-600';
+  let borderClass = 'border-t-emerald-600';
+
+  if (status === 'busy') {
+    colorClass = 'from-red-500 to-red-600';
+    borderClass = 'border-t-red-600';
+  } else if (status === 'offline') {
+    colorClass = 'from-gray-500 to-gray-600';
+    borderClass = 'border-t-gray-600';
+  }
+
   const iconHtml = renderToStaticMarkup(
     <div className="relative flex flex-col items-center justify-center transform -translate-x-1/2 -translate-y-full">
-      <div className="h-10 w-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white shadow-lg border-2 border-white z-10">
+      <div className={`h-10 w-10 bg-gradient-to-br ${colorClass} rounded-full flex items-center justify-center text-white shadow-lg border-2 border-white z-10`}>
         <Zap className="h-5 w-5 fill-current" />
       </div>
-      <div className="w-0 h-0 border-l-[8px] border-l-transparent border-t-[8px] border-t-emerald-600 border-r-[8px] border-r-transparent -mt-1 z-0"></div>
+      <div className={`w-0 h-0 border-l-[8px] border-l-transparent border-t-[8px] ${borderClass} border-r-[8px] border-r-transparent -mt-1 z-0`}></div>
       <div className="w-8 h-2 bg-black/20 blur-sm rounded-full mt-1"></div>
     </div>
   );
@@ -38,8 +49,6 @@ const createCustomIcon = () => {
     iconAnchor: [20, 50],
   });
 };
-
-const customIcon = createCustomIcon();
 
 // Component to handle map center updates
 const MapController = ({ center }: { center: [number, number] }) => {
@@ -79,7 +88,7 @@ export const Map: React.FC = () => {
 
   // Mock data - in real app, this would come from API
   useEffect(() => {
-    const mockStations: ChargingStation[] = [
+    let mockStations: ChargingStation[] = [
       // Bhubaneswar Stations
       {
         id: '4',
@@ -131,7 +140,7 @@ export const Map: React.FC = () => {
         socketType: 'CCS',
         powerCapacity: 25,
         pricing: { perMinute: 4.5, perKwh: 16 },
-        availability: 'busy',
+        availability: 'available', // Initially available, logic will randomize
         amenities: ['Service Center', 'Waiting Lounge'],
         images: ['https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg'],
         reviews: [],
@@ -292,6 +301,38 @@ export const Map: React.FC = () => {
         createdAt: '2024-01-03'
       }
     ];
+
+    // Logic to ensure 2-3 Bhubaneswar stations are 'busy'
+    const bhubaneswarIds = ['4', '5', '6', '7', '8', '9', '10', '11'];
+
+    // Filter out stations that are already assigned 'busy' per static data if any (only 'offline' is static in current mock for bbsr)
+    // We want to force randomly 2 to 3 stations to be busy.
+    // First, reset all non-offline Bhubaneswar stations to available to start with a clean slate for randomization
+    mockStations = mockStations.map(station => {
+      if (bhubaneswarIds.includes(station.id) && station.availability !== 'offline') {
+        return { ...station, availability: 'available' };
+      }
+      return station;
+    });
+
+    const candidateStations = mockStations.filter(
+      s => bhubaneswarIds.includes(s.id) && s.availability === 'available'
+    );
+
+    // Pick 2 or 3 random indices
+    const countToBusy = Math.floor(Math.random() * 2) + 2; // Returns 2 or 3
+    const shuffled = [...candidateStations].sort(() => 0.5 - Math.random());
+    const selectedToBusy = shuffled.slice(0, countToBusy);
+    const selectedIds = selectedToBusy.map(s => s.id);
+
+    // Update the statuses
+    mockStations = mockStations.map(station => {
+      if (selectedIds.includes(station.id)) {
+        return { ...station, availability: 'busy' };
+      }
+      return station;
+    });
+
     setStations(mockStations);
   }, []);
 
@@ -445,7 +486,7 @@ export const Map: React.FC = () => {
                   <Marker
                     key={station.id}
                     position={[station.coordinates.lat, station.coordinates.lng]}
-                    icon={customIcon}
+                    icon={createCustomIcon(station.availability)}
                     eventHandlers={{
                       click: () => setSelectedStation(station),
                     }}

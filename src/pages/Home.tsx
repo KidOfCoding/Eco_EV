@@ -223,7 +223,7 @@ export const Home: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Why Choose Eco Pulse?
+              Why Choose ECOPluse?
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400">
               Experience the future of EV charging with our comprehensive platform

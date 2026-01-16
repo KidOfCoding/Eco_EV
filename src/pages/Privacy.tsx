@@ -91,7 +91,7 @@ export const Privacy: React.FC = () => {
               Introduction
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              Eco Pulse ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform, mobile application, and related services. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the platform.
+              ECOPluse ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform, mobile application, and related services. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the platform.
             </p>
           </motion.div>
         </div>

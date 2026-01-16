@@ -155,7 +155,7 @@ export const Pricing: React.FC = () => {
                                 How does the cashback work?
                             </h3>
                             <p className="text-gray-600 dark:text-gray-400">
-                                Monthly Pass members earn 5% cashback on all charging sessions, credited to their Eco Pulse wallet instantly.
+                                Monthly Pass members earn 5% cashback on all charging sessions, credited to their ECOPluse wallet instantly.
                             </p>
                         </div>
                     </div>
@@ -164,3 +164,4 @@ export const Pricing: React.FC = () => {
         </div>
     );
 };
+

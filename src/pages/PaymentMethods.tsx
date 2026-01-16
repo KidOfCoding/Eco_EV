@@ -277,7 +277,7 @@ export const PaymentMethods: React.FC = () => {
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm mt-6">
               <div className="p-6 border-b border-gray-200 dark:border-gray-700">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Eco Pulse Wallet
+                  ECOPluse Wallet
                 </h2>
               </div>
               <div className="p-6">

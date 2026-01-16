@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  MapPin, 
-  Clock, 
-  Battery, 
+import {
+  MapPin,
+  Clock,
+  Battery,
   CreditCard,
   Star,
   Calendar,
@@ -29,7 +29,34 @@ export const RiderDashboard: React.FC = () => {
     carbonSaved: 125 // kg CO2
   };
 
-  const recentBookings = [
+  // Load bookings from local storage
+  const [localBookings, setLocalBookings] = useState<any[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('bookings');
+    if (saved) {
+      setLocalBookings(JSON.parse(saved));
+    }
+  }, []);
+
+  // Combine mock data with local bookings
+  // Transform local bookings to dashboard format if needed
+  const transformedLocalBookings = localBookings.map(b => ({
+    id: b.id,
+    stationName: b.stationTitle,
+    hostName: b.hostName,
+    location: b.stationAddress || 'Koramangala, Bangalore', // Fallback if address missing
+    scheduledTime: `${b.date} ${b.time}`,
+    duration: b.duration,
+    estimatedCost: b.amount,
+    status: b.status,
+    amount: b.amount, // For recent bookings style
+    energyConsumed: (b.duration * 3.3 / 60).toFixed(1), // Estimate energy
+    date: b.date,
+    rating: 0 // New bookings haven't been rated
+  }));
+
+  const mockRecentBookings = [
     {
       id: '1',
       stationName: 'FastCharge Home Station',
@@ -68,7 +95,7 @@ export const RiderDashboard: React.FC = () => {
     }
   ];
 
-  const upcomingBookings = [
+  const mockUpcomingBookings = [
     {
       id: '4',
       stationName: 'FastCharge Home Station',
@@ -80,6 +107,15 @@ export const RiderDashboard: React.FC = () => {
       status: 'confirmed'
     }
   ];
+
+  // Merge and sort
+  // For this demo, we'll put all local bookings in 'Upcoming' if they are future, or 'Recent' if past?
+  // Simply adding all local bookings to upcoming for immediate visibility as they are likely "newly created"
+
+  const upcomingBookings = [...transformedLocalBookings, ...mockUpcomingBookings];
+
+  // You might want to filter recent bookings strictly, but for now let's keep mock recent bookings as is
+  const recentBookings = mockRecentBookings;
 
   const favoriteStations = [
     {
@@ -115,30 +151,30 @@ export const RiderDashboard: React.FC = () => {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <Button 
+          <Button
             className="h-20 flex-col"
             onClick={() => navigate('/map')}
             icon={<MapPin className="h-6 w-6 mb-2" />}
           >
             Find Chargers
           </Button>
-          <Button 
-            variant="secondary" 
+          <Button
+            variant="secondary"
             className="h-20 flex-col"
             onClick={() => navigate('/wallet')}
             icon={<Wallet className="h-6 w-6 mb-2" />}
           >
             My Wallet
           </Button>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="h-20 flex-col"
             icon={<History className="h-6 w-6 mb-2" />}
           >
             History
           </Button>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="h-20 flex-col"
             icon={<Gift className="h-6 w-6 mb-2" />}
           >
@@ -317,11 +353,10 @@ export const RiderDashboard: React.FC = () => {
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`h-4 w-4 ${
-                                i < booking.rating 
-                                  ? 'text-yellow-400 fill-current' 
-                                  : 'text-gray-300 dark:text-gray-600'
-                              }`}
+                              className={`h-4 w-4 ${i < booking.rating
+                                ? 'text-yellow-400 fill-current'
+                                : 'text-gray-300 dark:text-gray-600'
+                                }`}
                             />
                           ))}
                         </div>

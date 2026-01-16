@@ -89,7 +89,7 @@ export const Rewards: React.FC = () => {
     {
       id: 4,
       title: 'Social Butterfly',
-      description: 'Refer 5 friends to Eco Pulse',
+      description: 'Refer 5 friends to ECOPluse',
       reward: 1000,
       progress: 60,
       completed: false,
