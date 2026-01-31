@@ -46,9 +46,7 @@ export const Header: React.FC = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
 
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
-              SuryaVolt
-            </span>
+            <img src="/suryavolt-logo.png" alt="SuryaVolt" className="h-10 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
