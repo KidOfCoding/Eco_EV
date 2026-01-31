@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  Plus, 
-  Zap, 
-  DollarSign, 
-  Users, 
+import {
+  Plus,
+  Zap,
+  Banknote,
+  Users,
   Calendar,
   Star,
   TrendingUp,
@@ -106,7 +106,7 @@ export const HostDashboard: React.FC = () => {
     { id: 'overview', label: 'Overview', icon: TrendingUp },
     { id: 'stations', label: 'My Stations', icon: Zap },
     { id: 'bookings', label: 'Bookings', icon: Calendar },
-    { id: 'earnings', label: 'Earnings', icon: DollarSign },
+    { id: 'earnings', label: 'Earnings', icon: Banknote },
     { id: 'settings', label: 'Settings', icon: Settings }
   ];
 
@@ -138,7 +138,7 @@ export const HostDashboard: React.FC = () => {
                 </p>
               </div>
               <div className="h-12 w-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                <DollarSign className="h-6 w-6 text-green-600 dark:text-green-400" />
+                <Banknote className="h-6 w-6 text-green-600 dark:text-green-400" />
               </div>
             </div>
             <div className="flex items-center mt-4">

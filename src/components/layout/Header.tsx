@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  Zap,
   Menu,
   X,
   Sun,
@@ -46,14 +45,9 @@ export const Header: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <motion.div
-              whileHover={{ rotate: 180 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Zap className="h-8 w-8 text-blue-600" />
-            </motion.div>
+
             <span className="text-xl font-bold text-gray-900 dark:text-white">
-              ECOPluse
+              SuryaVolt
             </span>
           </Link>
 

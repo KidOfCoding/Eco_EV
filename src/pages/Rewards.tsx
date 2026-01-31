@@ -12,7 +12,7 @@ import {
   TrendingUp,
   CheckCircle,
   Clock,
-  Coins
+  Banknote
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useAuth } from '../contexts/AuthContext';
@@ -89,7 +89,7 @@ export const Rewards: React.FC = () => {
     {
       id: 4,
       title: 'Social Butterfly',
-      description: 'Refer 5 friends to ECOPluse',
+      description: 'Refer 5 friends to SuryaVolt',
       reward: 1000,
       progress: 60,
       completed: false,
@@ -199,7 +199,7 @@ export const Rewards: React.FC = () => {
           >
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Points Balance</h3>
-              <Coins className="h-6 w-6 text-yellow-500" />
+              <Banknote className="h-6 w-6 text-yellow-500" />
             </div>
             <div className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               {userProgress.currentPoints.toLocaleString()}
@@ -260,8 +260,8 @@ export const Rewards: React.FC = () => {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 py-2 px-4 rounded-md transition-colors ${activeTab === tab.id
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  ? 'bg-blue-600 text-white'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
               >
                 {tab.label}
@@ -303,8 +303,8 @@ export const Rewards: React.FC = () => {
                     <div
                       key={index}
                       className={`p-4 rounded-lg border-2 ${tier.name === currentTier.name
-                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                          : 'border-gray-200 dark:border-gray-700'
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                        : 'border-gray-200 dark:border-gray-700'
                         }`}
                     >
                       <div className="flex items-center justify-between">
@@ -342,8 +342,8 @@ export const Rewards: React.FC = () => {
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className={`h-12 w-12 rounded-lg flex items-center justify-center ${challenge.completed
-                        ? 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400'
-                        : 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
+                      ? 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400'
+                      : 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
                       }`}>
                       {challenge.completed ? <CheckCircle className="h-6 w-6" /> : challenge.icon}
                     </div>

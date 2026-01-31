@@ -65,7 +65,7 @@ export const Help: React.FC = () => {
     {
       category: 'payments',
       question: 'What payment methods are accepted?',
-      answer: 'We accept UPI, credit/debit cards, net banking, and digital wallets like Paytm and Google Pay. You can also use your ECOPluse wallet for faster payments.'
+      answer: 'We accept UPI, credit/debit cards, net banking, and digital wallets like Paytm and Google Pay. You can also use your SuryaVolt wallet for faster payments.'
     },
     {
       category: 'payments',

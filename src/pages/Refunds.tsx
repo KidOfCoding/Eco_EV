@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  RefreshCw, 
-  Clock, 
-  CreditCard, 
-  CheckCircle, 
+import {
+  RefreshCw,
+  Clock,
+  CreditCard,
+  CheckCircle,
   XCircle,
   AlertTriangle,
   Calendar,
-  DollarSign,
+
   Phone,
   Mail
 } from 'lucide-react';

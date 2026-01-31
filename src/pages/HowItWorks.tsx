@@ -118,7 +118,7 @@ export const HowItWorks: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              How ECOPluse Works
+              How SuryaVolt Works
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
               Simple, secure, and seamless EV charging experience for riders and earning opportunities for hosts

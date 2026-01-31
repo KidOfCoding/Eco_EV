@@ -120,7 +120,7 @@ export const BookingFlow: React.FC = () => {
   const paymentMethods = [
     {
       id: 'wallet',
-      name: 'ECOPluse Wallet',
+      name: 'SuryaVolt Wallet',
       description: `Balance: ₹${user?.wallet || 0}`,
       icon: <Wallet className="h-6 w-6" />,
       available: (user?.wallet || 0) >= calculateTotal()

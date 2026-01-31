@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Zap className="h-6 w-6 text-blue-400" />
-              <span className="text-xl font-bold">ECOPluse</span>
+              <span className="text-xl font-bold">SuryaVolt</span>
             </div>
             <p className="text-gray-400">
               The future of EV charging. Connect riders with charging stations seamlessly.
@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
             <div className="flex space-x-4">
               <div className="flex items-center space-x-2 text-sm text-gray-400">
                 <Mail className="h-4 w-4" />
-                <span>support@ecopulse.com</span>
+                <span>support@suryavolt.com</span>
               </div>
             </div>
             <div className="flex items-center space-x-2 text-sm text-gray-400">
@@ -111,7 +111,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 ECOPluse. All rights reserved.</p>
+          <p>&copy; 2024 SuryaVolt. All rights reserved.</p>
           <p className="mt-2 text-sm">
             Proudly made in India 🇮🇳 • Supporting sustainable transportation
           </p>

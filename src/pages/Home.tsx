@@ -99,6 +99,15 @@ export const Home: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 }}
+                className="mb-8"
+              >
+                <img src="/logo.png" alt="SuryaVolt Logo" className="h-24 w-auto drop-shadow-lg" />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.5, type: "spring" }}
                 className="inline-flex items-center space-x-2 bg-yellow-400/20 backdrop-blur-sm px-4 py-2 rounded-full border border-yellow-400/50 mb-6"
               >
@@ -223,7 +232,7 @@ export const Home: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Why Choose ECOPluse?
+              Why Choose SuryaVolt?
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400">
               Experience the future of EV charging with our comprehensive platform
@@ -347,7 +356,7 @@ export const Home: React.FC = () => {
               </Button>
               <Button
                 size="lg"
-                variant="outline"
+                className="bg-white text-blue-600 hover:bg-blue-50 border-none px-8"
                 onClick={() => navigate('/register?role=host')}
                 icon={<TrendingUp className="h-5 w-5" />}
               >

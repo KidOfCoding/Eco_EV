@@ -80,8 +80,8 @@ export const Pricing: React.FC = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
                             className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border-2 ${plan.recommended
-                                    ? 'border-emerald-500 scale-105 z-10'
-                                    : 'border-transparent hover:border-blue-200 dark:hover:border-blue-800'
+                                ? 'border-emerald-500 scale-105 z-10'
+                                : 'border-transparent hover:border-blue-200 dark:hover:border-blue-800'
                                 }`}
                         >
                             {plan.recommended && (
@@ -155,7 +155,7 @@ export const Pricing: React.FC = () => {
                                 How does the cashback work?
                             </h3>
                             <p className="text-gray-600 dark:text-gray-400">
-                                Monthly Pass members earn 5% cashback on all charging sessions, credited to their ECOPluse wallet instantly.
+                                Monthly Pass members earn 5% cashback on all charging sessions, credited to their SuryaVolt wallet instantly.
                             </p>
                         </div>
                     </div>

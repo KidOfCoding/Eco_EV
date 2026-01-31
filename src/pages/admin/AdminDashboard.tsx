@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Users, 
-  Zap, 
-  DollarSign, 
+import {
+  Users,
+  Zap,
+  Banknote,
   TrendingUp,
   MapPin,
   AlertTriangle,
@@ -94,7 +94,7 @@ export const AdminDashboard: React.FC = () => {
     switch (type) {
       case 'user_registered': return <Users className="h-4 w-4" />;
       case 'station_added': return <Zap className="h-4 w-4" />;
-      case 'payment_failed': return <DollarSign className="h-4 w-4" />;
+      case 'payment_failed': return <Banknote className="h-4 w-4" />;
       case 'dispute_raised': return <AlertTriangle className="h-4 w-4" />;
       case 'high_usage': return <Activity className="h-4 w-4" />;
       default: return <Activity className="h-4 w-4" />;
@@ -194,7 +194,7 @@ export const AdminDashboard: React.FC = () => {
                 </p>
               </div>
               <div className="h-12 w-12 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center">
-                <DollarSign className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+                <Banknote className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
               </div>
             </div>
             <div className="flex items-center mt-4">
@@ -324,8 +324,8 @@ export const AdminDashboard: React.FC = () => {
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                      <div 
-                        className="bg-blue-500 h-2 rounded-full" 
+                      <div
+                        className="bg-blue-500 h-2 rounded-full"
                         style={{ width: `${(analytics.totalRiders / analytics.totalUsers) * 100}%` }}
                       ></div>
                     </div>
@@ -338,8 +338,8 @@ export const AdminDashboard: React.FC = () => {
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                      <div 
-                        className="bg-emerald-500 h-2 rounded-full" 
+                      <div
+                        className="bg-emerald-500 h-2 rounded-full"
                         style={{ width: `${(analytics.totalHosts / analytics.totalUsers) * 100}%` }}
                       ></div>
                     </div>
@@ -407,7 +407,7 @@ export const AdminDashboard: React.FC = () => {
                     View Disputes
                   </Button>
                   <Button variant="outline" size="sm" className="w-full justify-start">
-                    <DollarSign className="h-4 w-4 mr-2" />
+                    <Banknote className="h-4 w-4 mr-2" />
                     Financial Reports
                   </Button>
                 </div>

@@ -214,8 +214,8 @@ export const PaymentMethods: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1 }}
                         className={`border-2 rounded-lg p-4 ${method.isDefault
-                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                            : 'border-gray-300 dark:border-gray-600'
+                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                          : 'border-gray-300 dark:border-gray-600'
                           }`}
                       >
                         <div className="flex items-center justify-between">
@@ -277,7 +277,7 @@ export const PaymentMethods: React.FC = () => {
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm mt-6">
               <div className="p-6 border-b border-gray-200 dark:border-gray-700">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  ECOPluse Wallet
+                  SuryaVolt Wallet
                 </h2>
               </div>
               <div className="p-6">

@@ -45,7 +45,7 @@ export const PaymentSuccess: React.FC = () => {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'ECOPluse Payment Successful',
+        title: 'SuryaVolt Payment Successful',
         text: `Payment of ₹${transactionDetails.amount} completed successfully!`,
         url: window.location.href
       });

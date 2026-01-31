@@ -1,12 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Button } from '../components/ui/Button';
 import { FileText, Calendar, Shield, AlertTriangle } from 'lucide-react';
 
 export const Terms: React.FC = () => {
   const sections = [
     {
       title: 'Acceptance of Terms',
-      content: `By accessing and using ECOPluse's platform, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.`
+      content: `By accessing and using SuryaVolt's platform, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.`
     },
     {
       title: 'User Accounts',
@@ -30,7 +31,7 @@ export const Terms: React.FC = () => {
     },
     {
       title: 'Safety and Insurance',
-      content: `All charging sessions are covered by our comprehensive insurance policy. Users must follow safety guidelines and report any incidents immediately. ECOPluse is not liable for damages resulting from misuse or negligence.`
+      content: `All charging sessions are covered by our comprehensive insurance policy. Users must follow safety guidelines and report any incidents immediately. SuryaVolt is not liable for damages resulting from misuse or negligence.`
     },
     {
       title: 'Prohibited Activities',
@@ -38,11 +39,11 @@ export const Terms: React.FC = () => {
     },
     {
       title: 'Intellectual Property',
-      content: `All content, trademarks, and intellectual property on the platform belong to ECOPluse or its licensors. Users may not reproduce, distribute, or create derivative works without permission.`
+      content: `All content, trademarks, and intellectual property on the platform belong to SuryaVolt or its licensors. Users may not reproduce, distribute, or create derivative works without permission.`
     },
     {
       title: 'Limitation of Liability',
-      content: `ECOPluse's liability is limited to the amount paid for the specific service. We are not liable for indirect, incidental, or consequential damages. Our total liability shall not exceed ₹10,000 per incident.`
+      content: `SuryaVolt's liability is limited to the amount paid for the specific service. We are not liable for indirect, incidental, or consequential damages. Our total liability shall not exceed ₹10,000 per incident.`
     },
     {
       title: 'Dispute Resolution',
@@ -68,7 +69,7 @@ export const Terms: React.FC = () => {
               Terms of Service
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Please read these terms carefully before using ECOPluse's platform and services.
+              Please read these terms carefully before using SuryaVolt's platform and services.
             </p>
           </motion.div>
         </div>

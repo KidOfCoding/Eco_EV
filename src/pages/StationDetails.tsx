@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  MapPin, 
-  Star, 
-  Zap, 
-  Clock, 
-  DollarSign,
+import {
+  MapPin,
+  Star,
+  Zap,
+  Clock,
+  Banknote,
   Calendar,
   ArrowLeft,
   Heart,
@@ -145,30 +145,30 @@ export const StationDetails: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={() => navigate(-1)}
             icon={<ArrowLeft className="h-4 w-4" />}
           >
             Back to Map
           </Button>
           <div className="flex items-center space-x-2">
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               onClick={handleToggleFavorite}
               icon={<Heart className={`h-4 w-4 ${isFavorite ? 'fill-current text-red-500' : ''}`} />}
             >
               {isFavorite ? 'Saved' : 'Save'}
             </Button>
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               onClick={handleShare}
               icon={<Share2 className="h-4 w-4" />}
             >
               Share
             </Button>
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               onClick={handleReport}
               icon={<Flag className="h-4 w-4" />}
             >
@@ -197,23 +197,21 @@ export const StationDetails: React.FC = () => {
                     <button
                       key={index}
                       onClick={() => setSelectedImageIndex(index)}
-                      className={`w-3 h-3 rounded-full transition-all ${
-                        index === selectedImageIndex ? 'bg-white' : 'bg-white/50'
-                      }`}
+                      className={`w-3 h-3 rounded-full transition-all ${index === selectedImageIndex ? 'bg-white' : 'bg-white/50'
+                        }`}
                     />
                   ))}
                 </div>
                 <div className="absolute top-4 right-4">
-                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    station.availability === 'available' 
-                      ? 'bg-green-100 text-green-800' 
-                      : 'bg-red-100 text-red-800'
-                  }`}>
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${station.availability === 'available'
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'
+                    }`}>
                     {station.availability === 'available' ? 'Available Now' : 'Currently Busy'}
                   </span>
                 </div>
               </div>
-              
+
               {station.images.length > 1 && (
                 <div className="p-4 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex space-x-2 overflow-x-auto">
@@ -221,11 +219,10 @@ export const StationDetails: React.FC = () => {
                       <button
                         key={index}
                         onClick={() => setSelectedImageIndex(index)}
-                        className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 ${
-                          index === selectedImageIndex 
-                            ? 'border-blue-500' 
-                            : 'border-gray-300 dark:border-gray-600'
-                        }`}
+                        className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 ${index === selectedImageIndex
+                          ? 'border-blue-500'
+                          : 'border-gray-300 dark:border-gray-600'
+                          }`}
                       >
                         <img
                           src={image}
@@ -311,7 +308,7 @@ export const StationDetails: React.FC = () => {
 
                 <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                   <div className="flex items-center mb-2">
-                    <DollarSign className="h-5 w-5 text-blue-600 mr-2" />
+                    <Banknote className="h-5 w-5 text-blue-600 mr-2" />
                     <span className="font-medium text-gray-900 dark:text-white">Pricing</span>
                   </div>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -340,21 +337,21 @@ export const StationDetails: React.FC = () => {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
+                <Button
                   className="flex-1"
                   onClick={handleBookNow}
                   icon={<Calendar className="h-4 w-4" />}
                 >
                   Book Now
                 </Button>
-                <Button 
+                <Button
                   variant="outline"
                   onClick={handleGetDirections}
                   icon={<Navigation className="h-4 w-4" />}
                 >
                   Get Directions
                 </Button>
-                <Button 
+                <Button
                   variant="outline"
                   onClick={handleContactHost}
                   icon={<MessageCircle className="h-4 w-4" />}
@@ -394,8 +391,8 @@ export const StationDetails: React.FC = () => {
                     <div className="flex items-start space-x-4">
                       <div className="h-12 w-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full flex items-center justify-center text-white font-medium">
                         {review.userAvatar ? (
-                          <img 
-                            src={review.userAvatar} 
+                          <img
+                            src={review.userAvatar}
                             alt={review.userName}
                             className="h-12 w-12 rounded-full object-cover"
                           />
@@ -416,11 +413,10 @@ export const StationDetails: React.FC = () => {
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`h-4 w-4 ${
-                                i < review.rating 
-                                  ? 'text-yellow-400 fill-current' 
-                                  : 'text-gray-300 dark:text-gray-600'
-                              }`}
+                              className={`h-4 w-4 ${i < review.rating
+                                ? 'text-yellow-400 fill-current'
+                                : 'text-gray-300 dark:text-gray-600'
+                                }`}
                             />
                           ))}
                         </div>
@@ -454,9 +450,8 @@ export const StationDetails: React.FC = () => {
               <div className="space-y-4 mb-6">
                 <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <span className="text-sm text-gray-600 dark:text-gray-400">Availability</span>
-                  <span className={`text-sm font-medium ${
-                    station.availability === 'available' ? 'text-green-600' : 'text-red-600'
-                  }`}>
+                  <span className={`text-sm font-medium ${station.availability === 'available' ? 'text-green-600' : 'text-red-600'
+                    }`}>
                     {station.availability === 'available' ? 'Available Now' : 'Currently Busy'}
                   </span>
                 </div>
@@ -476,7 +471,7 @@ export const StationDetails: React.FC = () => {
                 </div>
               </div>
 
-              <Button 
+              <Button
                 className="w-full mb-4"
                 onClick={handleBookNow}
                 disabled={station.availability !== 'available'}
@@ -486,16 +481,16 @@ export const StationDetails: React.FC = () => {
               </Button>
 
               <div className="grid grid-cols-2 gap-3">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="sm"
                   onClick={handleGetDirections}
                   icon={<Navigation className="h-4 w-4" />}
                 >
                   Directions
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="sm"
                   onClick={handleContactHost}
                   icon={<Phone className="h-4 w-4" />}
@@ -515,7 +510,7 @@ export const StationDetails: React.FC = () => {
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 About Your Host
               </h3>
-              
+
               <div className="flex items-center space-x-4 mb-4">
                 <div className="h-16 w-16 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
                   {station.hostName.charAt(0)}
@@ -551,8 +546,8 @@ export const StationDetails: React.FC = () => {
                 </div>
               </div>
 
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="w-full mt-6"
                 onClick={handleContactHost}
                 icon={<MessageCircle className="h-4 w-4" />}

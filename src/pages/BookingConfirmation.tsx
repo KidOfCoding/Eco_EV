@@ -50,7 +50,7 @@ export const BookingConfirmation: React.FC = () => {
   const handleShareBooking = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'ECOPluse Booking Confirmation',
+        title: 'SuryaVolt Booking Confirmation',
         text: `I've booked a charging session at ${station.title}`,
         url: window.location.href
       });
@@ -61,7 +61,7 @@ export const BookingConfirmation: React.FC = () => {
   };
 
   const handleContactHost = () => {
-    toast.info('Host contact feature will be available soon!');
+    toast.success('Host contact feature will be available soon!');
   };
 
   return (

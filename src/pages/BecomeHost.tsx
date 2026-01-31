@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  DollarSign, 
-  Zap, 
-  Clock, 
-  Shield, 
-  TrendingUp, 
+import {
+  Banknote,
+  Zap,
+  Clock,
+  Shield,
+  TrendingUp,
   Users,
   CheckCircle,
   ArrowRight,
@@ -27,7 +27,7 @@ export const BecomeHost: React.FC = () => {
 
   const benefits = [
     {
-      icon: <DollarSign className="h-8 w-8" />,
+      icon: <Banknote className="h-8 w-8" />,
       title: 'Earn ₹15,000+ Monthly',
       description: 'Average hosts earn between ₹15,000 to ₹45,000 per month from their charging stations'
     },
@@ -109,20 +109,20 @@ export const BecomeHost: React.FC = () => {
                 <span className="text-emerald-300"> Money Machine</span>
               </h1>
               <p className="text-xl text-emerald-100 mb-8">
-                Join thousands of hosts earning passive income by sharing their EV charging stations. 
+                Join thousands of hosts earning passive income by sharing their EV charging stations.
                 It's simple, safe, and profitable.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   variant="secondary"
                   onClick={() => navigate('/register?role=host')}
                   icon={<Zap className="h-5 w-5" />}
                 >
                   Start Hosting Today
                 </Button>
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   variant="outline"
                   onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}
                   icon={<Calculator className="h-5 w-5" />}
@@ -404,16 +404,16 @@ export const BecomeHost: React.FC = () => {
               Join our community of hosts and start generating passive income from your charging station today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 variant="secondary"
                 onClick={() => navigate('/register?role=host')}
                 icon={<Zap className="h-5 w-5" />}
               >
                 Become a Host
               </Button>
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 variant="outline"
                 onClick={() => navigate('/help')}
                 icon={<Users className="h-5 w-5" />}

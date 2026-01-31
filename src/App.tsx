@@ -31,14 +31,22 @@ import { BookingConfirmation } from './pages/BookingConfirmation';
 import { PaymentMethods } from './pages/PaymentMethods';
 import { PaymentSuccess } from './pages/PaymentSuccess';
 import { StationDetails } from './pages/StationDetails';
-import { HostAmenities } from './pages/HostAmenities';
+
 import { Pricing } from './pages/Pricing';
 
+import { SplashScreen } from './components/layout/SplashScreen';
+import { AnimatePresence } from 'framer-motion';
+
 function App() {
+  const [showSplash, setShowSplash] = React.useState(true);
+
   return (
     <ThemeProvider>
       <AuthProvider>
         <Router>
+          <AnimatePresence>
+            {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+          </AnimatePresence>
           <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
             <Header />
             <main className="flex-1">
